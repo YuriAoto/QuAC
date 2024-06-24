@@ -1,0 +1,75 @@
+<html lang="en">
+<head>
+<title>Masses and Atoms - QuAC Manual 1.0</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="QuAC Manual 1.0">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Keywords.html#Keywords" title="Keywords">
+<link rel="prev" href="Keywords.html#Keywords" title="Keywords">
+<link rel="next" href="Format.html#Format" title="Format">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+QuAC is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+QuAC - Quantum Atomic Collisions
+Copyright (C) 2009, 2010, 2011, 2012  Yuri Aoto-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Masses-and-Atoms"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Format.html#Format">Format</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Keywords.html#Keywords">Keywords</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Keywords.html#Keywords">Keywords</a>
+<hr>
+</div>
+
+<h3 class="section">7.1 Masses and Atoms</h3>
+
+<p>The keywords <code>MASSES</code>,
+<a name="index-MASSES-20"></a><code>RED_MASS</code>
+<a name="index-RED_005fMASS-21"></a>and <code>ATOMS</code>
+<a name="index-ATOMS-22"></a>can be used to define the masses of the particles. The first two are used to give directly the numerical value of the masses, along with the unit, and the last to give the atomic symbols and use the corresponding masses from the atomic data library of QuAC. A list of the atoms and the syntax of atomic symbols available can be viewed running <samp><span class="command">QuAC --atoms</span></samp>. 
+<a name="index-mass-23"></a><a name="index-reduced-mass-24"></a><a name="index-atoms-25"></a>
+<strong>General syntax:</strong>
+
+<pre class="example">MASSES <var>mass_1</var> <var>mass_2</var> <var>unit</var>
+</pre>
+   <p>or
+
+<pre class="example">RED_MASS <var>reduced_mass</var> <var>unit</var>
+</pre>
+   <p>or
+
+<pre class="example">ATOMS <var>atom_1</var> <var>atom_2</var>
+</pre>
+   <p><var>mass_1</var> and <var>mass_2</var> are the masses of the particles, <var>reduced_mass</var> is the reduced mass of the two particle system, and <var>atom_1</var> and <var>atom_2</var> are atomic symbols. <var>unit</var> is an unit of mass.
+
+   <p><strong>Incompatibilities:</strong>
+
+   <p>If a differential cross section in the laboratory system of reference will be calculated, the mass of both particles should be given.
+
+   <p><strong>Default values:</strong>
+
+   <p>ANALYSE DEFAULT VALUES. WHEN MASS DEFINITION CAN BE SKIPPED?
+
+<!-- ====== new node/chap;sec;sub -->
+   </body></html>
+

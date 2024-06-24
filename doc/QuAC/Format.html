@@ -1,0 +1,68 @@
+<html lang="en">
+<head>
+<title>Format - QuAC Manual 1.0</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="QuAC Manual 1.0">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Keywords.html#Keywords" title="Keywords">
+<link rel="prev" href="Masses-and-Atoms.html#Masses-and-Atoms" title="Masses and Atoms">
+<link rel="next" href="Calculation-Keywords.html#Calculation-Keywords" title="Calculation Keywords">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+QuAC is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+QuAC - Quantum Atomic Collisions
+Copyright (C) 2009, 2010, 2011, 2012  Yuri Aoto-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Format"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Calculation-Keywords.html#Calculation-Keywords">Calculation Keywords</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Masses-and-Atoms.html#Masses-and-Atoms">Masses and Atoms</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Keywords.html#Keywords">Keywords</a>
+<hr>
+</div>
+
+<h3 class="section">7.2 Format</h3>
+
+<p>The format for output print can be specified with the keyword <code>FORMAT</code>. 
+<a name="index-FORMAT-26"></a><a name="index-fortran-format-27"></a><a name="index-format-28"></a>
+<strong>General syntax:</strong>
+
+<pre class="example">FORMAT
+<var>quantity</var> <var>format</var>
+<var>quantity</var> <var>format</var>
+...
+<var>quantity</var> <var>format</var>
+</pre>
+   <p><var>quantity</var> can be one of the following: &lsquo;<samp><span class="samp">energy</span></samp>&rsquo;, &lsquo;<samp><span class="samp">energy_cm-1</span></samp>&rsquo;, &lsquo;<samp><span class="samp">cross_sec</span></samp>&rsquo;, &lsquo;<samp><span class="samp">angle</span></samp>&rsquo;, &lsquo;<samp><span class="samp">ang_momentum</span></samp>&rsquo;, &lsquo;<samp><span class="samp">distance</span></samp>&rsquo;, &lsquo;<samp><span class="samp">wave_function</span></samp>&rsquo;, or &lsquo;<samp><span class="samp">potential</span></samp>&rsquo;. <var>format</var> is any valid fortran format (without the enclosing parentheses) for &lsquo;<samp><span class="samp">REAL</span></samp>&rsquo; or &lsquo;<samp><span class="samp">INTEGER</span></samp>&rsquo; kind of variable, depending, of course, of <var>quantity</var>. All the formats can be restored to default values using &lsquo;<samp><span class="samp">default</span></samp>&rsquo; as <var>quantity</var>, case in which no <var>format</var> need to be passed.
+
+   <p><strong>Incompatibilities:</strong>
+
+   <p>There are no incompatibilities for this keyword.
+
+   <p><strong>Default values:</strong>
+
+   <p>The default formats are: &lsquo;<samp><span class="samp">ES15.8</span></samp>&rsquo; for &lsquo;<samp><span class="samp">energy</span></samp>&rsquo;, &lsquo;<samp><span class="samp">ES15.8</span></samp>&rsquo; for &lsquo;<samp><span class="samp">cross_section</span></samp>&rsquo;, &lsquo;<samp><span class="samp">F0.10</span></samp>&rsquo; for &lsquo;<samp><span class="samp">angle</span></samp>&rsquo;, &lsquo;<samp><span class="samp">I0</span></samp>&rsquo; for &lsquo;<samp><span class="samp">ang_momentum</span></samp>&rsquo;, &lsquo;<samp><span class="samp">F0.10</span></samp>&rsquo; for &lsquo;<samp><span class="samp">distance</span></samp>&rsquo;, &lsquo;<samp><span class="samp">ES15.8</span></samp>&rsquo; for &lsquo;<samp><span class="samp">wave_function</span></samp>&rsquo;, &lsquo;<samp><span class="samp">ES17.10</span></samp>&rsquo; for &lsquo;<samp><span class="samp">potential</span></samp>&rsquo;, and &lsquo;<samp><span class="samp">F0.5</span></samp>&rsquo; for &lsquo;<samp><span class="samp">energy_cm1</span></samp>&rsquo;
+
+<!-- ====== new node/chap;sec;sub -->
+   </body></html>
+

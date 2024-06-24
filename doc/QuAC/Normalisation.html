@@ -1,0 +1,65 @@
+<html lang="en">
+<head>
+<title>Normalisation - QuAC Manual 1.0</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="QuAC Manual 1.0">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Calculation-Keywords.html#Calculation-Keywords" title="Calculation Keywords">
+<link rel="prev" href="Print.html#Print" title="Print">
+<link rel="next" href="Potential-Name.html#Potential-Name" title="Potential Name">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+QuAC is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+QuAC - Quantum Atomic Collisions
+Copyright (C) 2009, 2010, 2011, 2012  Yuri Aoto-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Normalisation"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Potential-Name.html#Potential-Name">Potential Name</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Print.html#Print">Print</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Calculation-Keywords.html#Calculation-Keywords">Calculation Keywords</a>
+<hr>
+</div>
+
+<h4 class="subsection">7.3.6 Normalisation</h4>
+
+<p>The normalisation of the wave function can be controlled using the keyword <code>WFScale</code>. It can be used to avoid overflow or underflow for some problematic cases or to print wave functions scaled as your desire.
+
+   <p><strong>General syntax:</strong>
+
+<pre class="example">WFScale <var>scale</var>
+</pre>
+   <p><a name="index-WFScale-40"></a>
+The initial condition of the numerical integration will be multiplied by the <var>scale</var> argument.
+
+   <p><strong>Incompatibilities:</strong>
+
+   <p>There are no incompatibilities for this keyword.
+
+   <p><strong>Default values:</strong>
+
+   <p>The default value of <var>scale</var> is 1.
+
+<!-- ====== new node/chap;sec;sub -->
+   </body></html>
+

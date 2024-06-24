@@ -1,0 +1,82 @@
+\initial {A}
+\entry {\code {AddSteps}}{14, 16}
+\entry {\code {AnalysisType}}{21}
+\entry {\code {Angle}}{21}
+\entry {\code {AppMorse}}{6}
+\entry {\code {ATOMS}}{11}
+\initial {C}
+\entry {\code {CenterOfMassSys}}{23}
+\entry {\code {CrossSecUni}}{24}
+\entry {\code {CubSplFitr6}}{7}
+\entry {\code {CubSplFitr6r8}}{7}
+\entry {\code {CubSplFitr6r8r10}}{7}
+\entry {\code {CubSplr6}}{7}
+\entry {\code {CubSplr6r8}}{7}
+\initial {D}
+\entry {\code {DunhanNumberOfParam}}{23}
+\entry {\code {DunhanPureRotational}}{23}
+\entry {\code {DunhanPureVibrational}}{23}
+\initial {E}
+\entry {\code {ElecDipoleFunction}}{22}
+\entry {\code {ElecTransEnergy}}{23}
+\entry {\code {Energy}}{13}
+\entry {\code {ExpInterVelocity}}{13}
+\initial {F}
+\entry {\code {FinalIntStep}}{14}
+\entry {\code {FORMAT}}{11}
+\entry {\code {FPIniCond}}{15}
+\entry {\code {FrankCondon}}{22}
+\initial {H}
+\entry {\code {HardSphere}}{4}
+\initial {I}
+\entry {\code {InterAngle}}{21}
+\entry {\code {InterVelocity}}{13}
+\entry {\code {IntMeth}}{13}
+\entry {\code {IntStep}}{14}
+\initial {J}
+\entry {\code {Job}}{22}
+\entry {\code {Jobs}}{22}
+\initial {L}
+\entry {\code {l}}{12}
+\entry {\code {LenJon}}{5}
+\entry {\code {LenJon-\var {N}-\var {M}}}{5}
+\entry {\code {LinarSpl}}{6}
+\entry {\code {lmax}}{12}
+\entry {\code {LSLenJon}}{5}
+\entry {\code {LSLenJon-\var {N}-\var {M}}}{5}
+\initial {M}
+\entry {\code {MASSES}}{11}
+\entry {\code {MeshkovParam}}{18}
+\entry {\code {Morse}}{6}
+\entry {\code {MurSorbie}}{6}
+\initial {N}
+\entry {\code {NatCubSpl}}{6}
+\initial {P}
+\entry {\code {PhaseShiftMeth}}{16}
+\entry {\code {PotName}}{15}
+\entry {\code {Print}}{14}
+\entry {\code {PrintPhaseShift}}{17}
+\entry {\code {PrintVibIterations}}{19}
+\entry {\code {PrintVibWFIterations}}{19}
+\initial {R}
+\entry {\code {RED_MASS}}{11}
+\entry {\code {RichardsonExtr}}{18}
+\entry {\code {Rmax}}{16}
+\entry {\code {Rmin}}{16}
+\initial {S}
+\entry {\code {SaveAtEach}}{17}
+\entry {\code {SaveGlobalPot}}{17}
+\entry {\code {SaveSteps}}{15}
+\entry {\code {ScattLenMeth}}{17}
+\entry {\code {SoftSphere}}{4}
+\entry {\code {Square}}{5}
+\initial {V}
+\entry {\code {Velocity}}{13}
+\entry {\code {Vib1stOrderMaxIterx}}{20}
+\entry {\code {VibFixedMesh}}{19}
+\entry {\code {VibLevel}}{18}
+\entry {\code {VibLevelMax}}{18}
+\entry {\code {VibRiniShift}}{20}
+\entry {\code {VibThreshold}}{20}
+\initial {W}
+\entry {\code {WFScale}}{14}

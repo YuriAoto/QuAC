@@ -1,0 +1,53 @@
+.TH unidadeslib 3 "09/Abr/2010" "Versao 1.1"
+
+.SH NOME
+
+unidadeslib \- biblioteca de unidades
+
+
+.SH DESCRICAO
+.B unidadeslib
+é uma biblioteca que armazena os fatores de conversão das grandezas Energia (J ou Joule, kJ, MJ, mJ, eV, keV, MeV, GeV, meV, hartree, cm-1, cal ou caloria, kcal ou Cal, Jmol-1 ou J.mol-1, kJmol-1 ou kJ.mol-1, calmol-1 ou cal.mol-1, kcalmol-1 ou Calmol-1 ou kcal.mol-1 ou Cal.mol-1, erg), Comprimento (m ou metro, km, dm, cm, mm, micro-m ou micrometro, nm, pm, angstron ou ang ou ANG, a0 ou Bohr ou BOHR), Massa (g, kg, Mg ou ton, dg, cg, mg, micro-g ou micrograma, ng, me, u ou uma ou mu), Velocidade (ms-1 ou m.s-1, kms-1 ou km.s-1, mh-1 ou m.h-1, kmh-1 ou km.h-1, uav ou u.a.v. ou uavel ou u.a.vel.) e Pressão (Pa ou Pascal, kP, MPa, mPa, bar, kbar, mbar, atm, torr). É organizado da seguinte forma:
+.PP
+.I Simbolo
+.br
+.I fator
+.br
+.I sig
+.br
+---
+.PP
+, onde
+.I Simbolo
+corresponde ao símbolo da unidade, como descrito acima,
+.I fator
+corresponde ao fator de conversão da unidade padrão daquela grandeza para a unidade em questão e
+.I sig
+é um inteiro que caracteriza a grandeza.
+
+
+.SH BUGS
+Não são conhecidos bugs para esta biblioteca. Favor contatar o autor se bugs forem encontrados.
+
+
+.SH VEJA TAMBÉM
+.SS Man pages
+.PP
+conversor(1)
+.SS Referências
+.PP
+http://physics.nist.gov/cuu/index.html
+.PP
+McQuarrie, D. A. and Simon, J. D. "Physical Chemistry - A Molecular Approach", Viva Books, 2006
+
+
+.SH AUTOR
+Yuri Alexandre Aoto - yurikungfu@gmail.com; yuri.aoto@usp.br
+
+
+.SH COPYRIGHT
+Copyright
+2009, 2010
+Yuri Alexandre Aoto
+.PP
+Esta biblioteca é livre e pode ser utilizada, copiada e modificada a vontade. A utilização e a garantia da autenticidade destes dados ou de qualquer versão modificada é de total responsabilidade do usuário.

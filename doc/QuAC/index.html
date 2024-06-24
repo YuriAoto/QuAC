@@ -1,0 +1,227 @@
+<html lang="en">
+<head>
+<title>QuAC Manual 1.0</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="QuAC Manual 1.0">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="#Top">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+QuAC is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+QuAC - Quantum Atomic Collisions
+Copyright (C) 2009, 2010, 2011, 2012  Yuri Aoto-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<h1 class="settitle">QuAC Manual 1.0</h1>
+<div class="contents">
+<h2>Table of Contents</h2>
+<ul>
+<li><a name="toc_Top" href="index.html#Top">QuAC Manual</a>
+<li><a name="toc_Overview" href="Overview.html#Overview">1 Overview</a>
+<li><a name="toc_Compiling-and-running" href="Compiling-and-running.html#Compiling-and-running">2 Compiling and running</a>
+<li><a name="toc_Input" href="Input.html#Input">3 Input</a>
+<li><a name="toc_Potentials" href="Potentials.html#Potentials">4 Potentials</a>
+<ul>
+<li><a href="Rigid-Sphere.html#Rigid-Sphere">4.1 Rigid Sphere</a>
+<li><a href="Soft-Sphere.html#Soft-Sphere">4.2 Soft Sphere</a>
+<li><a href="Square.html#Square">4.3 Square</a>
+<li><a href="Lennard-Jones.html#Lennard-Jones">4.4 Lennard Jones</a>
+<li><a href="Morse.html#Morse">4.5 Morse</a>
+<li><a href="Murrel-Sorbie.html#Murrel-Sorbie">4.6 Murrel Sorbie</a>
+<li><a href="Linear-Spline.html#Linear-Spline">4.7 Linear Spline</a>
+<li><a href="Natural-Cubic-Splines.html#Natural-Cubic-Splines">4.8 Natural Cubic Splines</a>
+<li><a href="Direct-Potential.html#Direct-Potential">4.9 Direct Potential</a>
+</li></ul>
+<li><a name="toc_Jobs" href="Jobs.html#Jobs">5 Jobs</a>
+<ul>
+<li><a href="Phase-Shifts.html#Phase-Shifts">5.1 Phase Shifts</a>
+<li><a href="Scattering-Length.html#Scattering-Length">5.2 Scattering Length</a>
+<li><a href="Bound-States.html#Bound-States">5.3 Bound States</a>
+<li><a href="Results-Analysis.html#Results-Analysis">5.4 Results Analysis</a>
+</li></ul>
+<li><a name="toc_Output" href="Output.html#Output">6 Output</a>
+<li><a name="toc_Keywords" href="Keywords.html#Keywords">7 Keywords</a>
+<ul>
+<li><a href="Masses-and-Atoms.html#Masses-and-Atoms">7.1 Masses and Atoms</a>
+<li><a href="Format.html#Format">7.2 Format</a>
+<li><a href="Calculation-Keywords.html#Calculation-Keywords">7.3 Calculation Keywords</a>
+<ul>
+<li><a href="Angular-Momentum.html#Angular-Momentum">7.3.1 Angular Momentum</a>
+<li><a href="Energy-and-Velocity.html#Energy-and-Velocity">7.3.2 Energy and Velocity</a>
+<li><a href="Integration-Method.html#Integration-Method">7.3.3 Integration Method</a>
+<li><a href="Integration-Step.html#Integration-Step">7.3.4 Integration Step</a>
+<li><a href="Print.html#Print">7.3.5 Print</a>
+<li><a href="Normalisation.html#Normalisation">7.3.6 Normalisation</a>
+<li><a href="Potential-Name.html#Potential-Name">7.3.7 Potential Name</a>
+<li><a href="Initial-Condition.html#Initial-Condition">7.3.8 Initial Condition</a>
+<li><a href="Save-Steps.html#Save-Steps">7.3.9 Save Steps</a>
+<li><a href="Phase-Shift-Method.html#Phase-Shift-Method">7.3.10 Phase Shift Method</a>
+<li><a href="R-min-and-R-max.html#R-min-and-R-max">7.3.11 R min and R max</a>
+<li><a href="Additional-Steps.html#Additional-Steps">7.3.12 Additional Steps</a>
+<li><a href="Save-Steps-at-each.html#Save-Steps-at-each">7.3.13 Save Steps at each</a>
+<li><a href="Print-Phase-Shifts.html#Print-Phase-Shifts">7.3.14 Print Phase Shifts</a>
+<li><a href="Save-Global-Potential.html#Save-Global-Potential">7.3.15 Save Global Potential</a>
+<li><a href="Scattering-Length-Method.html#Scattering-Length-Method">7.3.16 Scattering Length Method</a>
+<li><a href="Meshkov-Parameters.html#Meshkov-Parameters">7.3.17 Meshkov Parameters</a>
+<li><a href="Richardson-Extrapolation.html#Richardson-Extrapolation">7.3.18 Richardson Extrapolation</a>
+<li><a href="Vibrational-Levels.html#Vibrational-Levels">7.3.19 Vibrational Levels</a>
+<li><a href="Vibrational-Fixed-Mesh.html#Vibrational-Fixed-Mesh">7.3.20 Vibrational Fixed Mesh</a>
+<li><a href="Print-Vibration-Iterations.html#Print-Vibration-Iterations">7.3.21 Print Vibration Iterations</a>
+<li><a href="Print-WF-Vibration-Iterations.html#Print-WF-Vibration-Iterations">7.3.22 Print WF Vibration Iterations</a>
+<li><a href="Maximum-Iteration.html#Maximum-Iteration">7.3.23 Maximum Iteration</a>
+<li><a href="Vibrational-Threshold.html#Vibrational-Threshold">7.3.24 Vibrational Threshold</a>
+<li><a href="Vibrational-R-ini-shift.html#Vibrational-R-ini-shift">7.3.25 Vibrational R ini shift</a>
+</li></ul>
+<li><a href="Analysis-Keywords.html#Analysis-Keywords">7.4 Analysis Keywords</a>
+<ul>
+<li><a href="Analysis-Type.html#Analysis-Type">7.4.1 Analysis Type</a>
+<li><a href="Angles.html#Angles">7.4.2 Angles</a>
+<li><a href="Job-Analysed.html#Job-Analysed">7.4.3 Job Analysed</a>
+<li><a href="Electric-Dipole-Function.html#Electric-Dipole-Function">7.4.4 Electric Dipole Function</a>
+<li><a href="Frank-Condon.html#Frank-Condon">7.4.5 Frank Condon</a>
+<li><a href="Electronic-Transition.html#Electronic-Transition">7.4.6 Electronic Transition</a>
+<li><a href="CM-System-of-Reference.html#CM-System-of-Reference">7.4.7 CM System of Reference</a>
+<li><a href="Dunhan-Parameters.html#Dunhan-Parameters">7.4.8 Dunhan Parameters</a>
+<li><a href="Cross-Section-Unit.html#Cross-Section-Unit">7.4.9 Cross Section Unit</a>
+</li></ul>
+</li></ul>
+<li><a name="toc_Code" href="Code.html#Code">8 Code</a>
+<li><a name="toc_Keyword-Index" href="Keyword-Index.html#Keyword-Index">Keyword Index</a>
+<li><a name="toc_Concept-Index" href="Concept-Index.html#Concept-Index">Concept Index</a>
+</li></ul>
+</div>
+
+
+
+<!-- > Part 4: 'Top' Node and Master Menu -->
+<div class="node">
+<a name="Top"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Overview.html#Overview">Overview</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="../index.html#dir">(dir)</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="../index.html#dir">(dir)</a>
+<hr>
+</div>
+
+<h2 class="unnumbered">QuAC Manual</h2>
+
+<p>This manual is for QuAC, version 1.0.
+
+<ul class="menu">
+<li><a accesskey="1" href="Overview.html#Overview">Overview</a>
+<li><a accesskey="2" href="Compiling-and-running.html#Compiling-and-running">Compiling and running</a>
+<li><a accesskey="3" href="Input.html#Input">Input</a>
+<li><a accesskey="4" href="Potentials.html#Potentials">Potentials</a>
+<li><a accesskey="5" href="Jobs.html#Jobs">Jobs</a>
+<li><a accesskey="6" href="Output.html#Output">Output</a>
+<li><a accesskey="7" href="Keywords.html#Keywords">Keywords</a>
+<li><a accesskey="8" href="Code.html#Code">Code</a>
+<li><a accesskey="9" href="Keyword-Index.html#Keyword-Index">Keyword Index</a>
+<li><a href="Concept-Index.html#Concept-Index">Concept Index</a>
+
+</li></ul>
+<p>--- The Detailed Node Listing ---
+
+<p>Potentials
+
+</p>
+<ul class="menu">
+<li><a href="Rigid-Sphere.html#Rigid-Sphere">Rigid Sphere</a>
+<li><a href="Soft-Sphere.html#Soft-Sphere">Soft Sphere</a>
+<li><a href="Square.html#Square">Square</a>
+<li><a href="Lennard-Jones.html#Lennard-Jones">Lennard Jones</a>
+<li><a href="Morse.html#Morse">Morse</a>
+<li><a href="Murrel-Sorbie.html#Murrel-Sorbie">Murrel Sorbie</a>
+<li><a href="Linear-Spline.html#Linear-Spline">Linear Spline</a>
+<li><a href="Natural-Cubic-Splines.html#Natural-Cubic-Splines">Natural Cubic Splines</a>
+<li><a href="Direct-Potential.html#Direct-Potential">Direct Potential</a>
+
+</li></ul>
+<p>Jobs
+
+</p>
+<ul class="menu">
+<li><a href="Phase-Shifts.html#Phase-Shifts">Phase Shifts</a>
+<li><a href="Scattering-Length.html#Scattering-Length">Scattering Length</a>
+<li><a href="Bound-States.html#Bound-States">Bound States</a>
+<li><a href="Results-Analysis.html#Results-Analysis">Results Analysis</a>
+
+</li></ul>
+<p>Keywords
+
+</p>
+<ul class="menu">
+<li><a href="Masses-and-Atoms.html#Masses-and-Atoms">Masses and Atoms</a>
+<li><a href="Format.html#Format">Format </a>
+<li><a href="Calculation-Keywords.html#Calculation-Keywords">Calculation Keywords</a>
+<li><a href="Analysis-Keywords.html#Analysis-Keywords">Analysis Keywords</a>
+
+</li></ul>
+<p>Calculation Keywords
+
+</p>
+<ul class="menu">
+<li><a href="Angular-Momentum.html#Angular-Momentum">Angular Momentum</a>
+<li><a href="Energy-and-Velocity.html#Energy-and-Velocity">Energy and Velocity</a>
+<li><a href="Integration-Method.html#Integration-Method">Integration Method</a>
+<li><a href="Integration-Step.html#Integration-Step">Integration Step</a>
+<li><a href="Print.html#Print">Print</a>
+<li><a href="Normalisation.html#Normalisation">Normalisation</a>
+<li><a href="Potential-Name.html#Potential-Name">Potential Name</a>
+<li><a href="Initial-Condition.html#Initial-Condition">Initial Condition</a>
+<li><a href="Save-Steps.html#Save-Steps">Save Steps</a>
+<li><a href="Phase-Shift-Method.html#Phase-Shift-Method">Phase Shift Method</a>
+<li><a href="R-min-and-R-max.html#R-min-and-R-max">R min and R max</a>
+<li><a href="Additional-Steps.html#Additional-Steps">Additional Steps</a>
+<li><a href="Save-Steps-at-each.html#Save-Steps-at-each">Save Steps at each</a>
+<li><a href="Print-Phase-Shifts.html#Print-Phase-Shifts">Print Phase Shifts</a>
+<li><a href="Save-Global-Potential.html#Save-Global-Potential">Save Global Potential</a>
+<li><a href="Scattering-Length-Method.html#Scattering-Length-Method">Scattering Length Method</a>
+<li><a href="Meshkov-Parameters.html#Meshkov-Parameters">Meshkov Parameters</a>
+<li><a href="Richardson-Extrapolation.html#Richardson-Extrapolation">Richardson Extrapolation</a>
+<li><a href="Vibrational-Levels.html#Vibrational-Levels">Vibrational Levels</a>
+<li><a href="Vibrational-Fixed-Mesh.html#Vibrational-Fixed-Mesh">Vibrational Fixed Mesh</a>
+<li><a href="Print-Vibration-Iterations.html#Print-Vibration-Iterations">Print Vibration Iterations</a>
+<li><a href="Print-WF-Vibration-Iterations.html#Print-WF-Vibration-Iterations">Print WF Vibration Iterations</a>
+<li><a href="Maximum-Iteration.html#Maximum-Iteration">Maximum Iteration</a>
+<li><a href="Vibrational-Threshold.html#Vibrational-Threshold">Vibrational Threshold</a>
+<li><a href="Vibrational-R-ini-shift.html#Vibrational-R-ini-shift">Vibrational R ini shift</a>
+
+</li></ul>
+<p>Analysis Keywords
+
+</p>
+<ul class="menu">
+<li><a href="Analysis-Type.html#Analysis-Type">Analysis Type</a>
+<li><a href="Angles.html#Angles">Angles</a>
+<li><a href="Job-Analysed.html#Job-Analysed">Job Analysed</a>
+<li><a href="Electric-Dipole-Function.html#Electric-Dipole-Function">Electric Dipole Function</a>
+<li><a href="Frank-Condon.html#Frank-Condon">Frank Condon</a>
+<li><a href="Electronic-Transition.html#Electronic-Transition">Electronic Transition</a>
+<li><a href="CM-System-of-Reference.html#CM-System-of-Reference">CM System of Reference</a>
+<li><a href="Dunhan-Parameters.html#Dunhan-Parameters">Dunhan Parameters</a>
+<li><a href="Cross-Section-Unit.html#Cross-Section-Unit">Cross Section Unit</a>
+
+   </ul>
+
+<!-- > Part 5: The Body of the Document -->
+<!-- ====== new node/chap;sec;sub -->
+   </body></html>
+

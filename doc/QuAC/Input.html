@@ -1,0 +1,61 @@
+<html lang="en">
+<head>
+<title>Input - QuAC Manual 1.0</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="QuAC Manual 1.0">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="prev" href="Compiling-and-running.html#Compiling-and-running" title="Compiling and running">
+<link rel="next" href="Potentials.html#Potentials" title="Potentials">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+QuAC is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+QuAC - Quantum Atomic Collisions
+Copyright (C) 2009, 2010, 2011, 2012  Yuri Aoto-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Input"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Potentials.html#Potentials">Potentials</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Compiling-and-running.html#Compiling-and-running">Compiling and running</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+<hr>
+</div>
+
+<h2 class="chapter">3 Input</h2>
+
+<p>The input of QuAC is divided in two parts. The first contains the jobs informations and the second the potentials definitions. The first line of the input file is an job name. After, several jobs can be passed, which have the general syntax:
+
+<pre class="example"><var>job_type</var> [<var>job_name</var>]
+<var>job_keywords</var>
+...
+</pre>
+   <p><var>job_type</var> is the type of the job (see <a href="Jobs.html#Jobs">Jobs</a>) and the optional argument, <var>job_name</var>, is a name for this job. it is not completely optional, since if an posterior analysis of this job will be carried it is required. The number of jobs handled by QuAC is arbitrary and the keywords that follow this first line are concerned only to this job, with the exception of particles (see <a href="Masses-and-Atoms.html#Masses-and-Atoms">Masses and Atoms</a>) and formats (see <a href="Format.html#Format">Format</a>) definitions. Theses special keywords apply to the subsequent job, until another keyword override it.
+
+   <p>There are two kinds of jobs in QuAC: jobs that does some calculation and jobs that analyses this calculations. QuAC calculates just what it is asked for and do not try to be smart and analyse the results if it is not explicitly required.
+
+   <p>The potentials definitions must be placed after all the jobs. A keyword (see <a href="Potential-Name.html#Potential-Name">Potential Name</a>) links the job and the potential that it will use.
+
+   <p>Some keywords in the job and potential definitions can be given in any unit recognised by QuAC. Run <samp><span class="command">QuAC --units</span></samp> to see the available units and conversion factors. These informations is stored in an ASCII file (the command <samp><span class="command">QuAC --units</span></samp> provides it) and it is possible add new units or change the conversion factor changing it.
+
+<!-- ====== new node/chap;sec;sub -->
+   </body></html>
+

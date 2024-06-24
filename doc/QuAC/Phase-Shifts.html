@@ -1,0 +1,57 @@
+<html lang="en">
+<head>
+<title>Phase Shifts - QuAC Manual 1.0</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="QuAC Manual 1.0">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Jobs.html#Jobs" title="Jobs">
+<link rel="prev" href="Jobs.html#Jobs" title="Jobs">
+<link rel="next" href="Scattering-Length.html#Scattering-Length" title="Scattering Length">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+QuAC is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+QuAC - Quantum Atomic Collisions
+Copyright (C) 2009, 2010, 2011, 2012  Yuri Aoto-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Phase-Shifts"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Scattering-Length.html#Scattering-Length">Scattering Length</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Jobs.html#Jobs">Jobs</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Jobs.html#Jobs">Jobs</a>
+<hr>
+</div>
+
+<h3 class="section">5.1 Phase Shifts</h3>
+
+<p>The first type of job implemented in QuAC is a phase shift calculation
+<a name="index-phase-shift-18"></a>and this is for what QuAC was first designed (QuAC stands for <strong>Qu</strong>antum <strong>A</strong>tomic <strong>C</strong>ollision). In this jobs the radial Schrödinger equation is integrated for positive energy values (relative to the dissociation limit) and the phase shift is obtained by the analysis of the behaviour of the wave function in the long non interacting range of the potential,
+<!-- TeX version -->
+<!-- no TeX version -->
+u_l(r) = sin(d_l) j_l(kr) + cos(d_l) n_l(kr),
+where d_l is the phase shift, j_l and n_l are the spherical Bessel functions of first and second kind, and k^2 = 2mE/(h/2 pi)^2.
+
+   <p>QuAC stores the phase shifts for posterior analysis.
+
+<!-- ====== new node/chap;sec;sub -->
+   </body></html>
+

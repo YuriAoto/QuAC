@@ -1,0 +1,67 @@
+<html lang="en">
+<head>
+<title>Meshkov Parameters - QuAC Manual 1.0</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="QuAC Manual 1.0">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Calculation-Keywords.html#Calculation-Keywords" title="Calculation Keywords">
+<link rel="prev" href="Scattering-Length-Method.html#Scattering-Length-Method" title="Scattering Length Method">
+<link rel="next" href="Richardson-Extrapolation.html#Richardson-Extrapolation" title="Richardson Extrapolation">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+QuAC is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+QuAC - Quantum Atomic Collisions
+Copyright (C) 2009, 2010, 2011, 2012  Yuri Aoto-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Meshkov-Parameters"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Richardson-Extrapolation.html#Richardson-Extrapolation">Richardson Extrapolation</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Scattering-Length-Method.html#Scattering-Length-Method">Scattering Length Method</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Calculation-Keywords.html#Calculation-Keywords">Calculation Keywords</a>
+<hr>
+</div>
+
+<h4 class="subsection">7.3.17 Meshkov Parameters</h4>
+
+<p>The Meshkov parameters,
+r_bar and beta
+(See <a href="Scattering-Length.html#Scattering-Length">Scattering Length</a>.), are required for a Meshkov procedure for scattering length calculation. It can be given with the keyword <code>MeshkovParam</code>.
+
+   <p><strong>General syntax:</strong>
+
+<pre class="example">MeshkovParam <var>r_bar</var> <var>beta</var>
+</pre>
+   <p><a name="index-MeshkovParam-52"></a>
+The <var>r_bar</var> and <var>beta</var> arguments are the Meshkov parameters and <var>r_bar</var> must be given in the units used in the potential of the current job.
+
+   <p><strong>Incompatibilities:</strong>
+
+   <p>Have meaning only for scattering length calculations by the Meshkov procedure.
+
+   <p><strong>Default values:</strong>
+
+   <p>Do not have default values. Must be given in a Meshkov calculation.
+
+<!-- ====== new node/chap;sec;sub -->
+   </body></html>
+

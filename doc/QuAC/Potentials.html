@@ -1,0 +1,81 @@
+<html lang="en">
+<head>
+<title>Potentials - QuAC Manual 1.0</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="QuAC Manual 1.0">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="prev" href="Input.html#Input" title="Input">
+<link rel="next" href="Jobs.html#Jobs" title="Jobs">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+QuAC is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+QuAC - Quantum Atomic Collisions
+Copyright (C) 2009, 2010, 2011, 2012  Yuri Aoto-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Potentials"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Jobs.html#Jobs">Jobs</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Input.html#Input">Input</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+<hr>
+</div>
+
+<h2 class="chapter">4 Potentials</h2>
+
+<p>QuAC handles different types of potentials/dipole moments functions and they must be given after all of the jobs. Multiples potentials can be given and the general syntax is:
+
+<pre class="example">POTENTIAL <var>name</var>
+[Print <var>Lin/Log</var> <var>r_min</var> <var>r_max</var> <var>delta_r</var> <var>dist_uni</var> <var>ener_uni</var>]
+<var>type</var> <var>lambda</var> <var>dist_uni</var> [<var>ener_uni</var>]
+...
+&lsquo;<samp><span class="samp">parameters</span></samp>&rsquo;
+...
+</pre>
+   <p>or
+
+<pre class="example">DIP_MOM <var>name</var>
+[Print <var>Lin/Log</var> <var>r_min</var> <var>r_max</var> <var>delta_r</var> <var>dist_uni</var> <var>ener_uni</var>]
+<var>type</var> <var>lambda</var> <var>dist_uni</var> [<var>ener_uni</var>]
+...
+&lsquo;<samp><span class="samp">parameters</span></samp>&rsquo;
+...
+</pre>
+   <p>The argument <var>name</var> is a name for the given potential, the optional keywords and variables in the second line ask for print the potential in the &lsquo;<samp><span class="samp">.log</span></samp>&rsquo; file, from <var>r_min</var> to <var>r_max</var> increasing by <var>delta_r</var>. <var>Lin/Log</var> should be &lsquo;<samp><span class="samp">Lin</span></samp>&rsquo; or &lsquo;<samp><span class="samp">Log</span></samp>&rsquo; and means linear or logarithm r scale and <var>dist_uni</var> and <var>ener_uni</var> are the units the potential should be printed. <var>type</var> is the type of potential and <var>lambda</var> is the quantum number for the z-component of electronic angular momentum. <var>dist_uni</var> and <var>ener_uni</var> are the units the potential parameters will be given and do not need to be the same of the ones used in &lsquo;<samp><span class="samp">Print</span></samp>&rsquo; line.
+
+   <p>Each type of potential have their specific syntax, described below, and must be placed just after these arguments.
+
+<ul class="menu">
+<li><a accesskey="1" href="Rigid-Sphere.html#Rigid-Sphere">Rigid Sphere</a>
+<li><a accesskey="2" href="Soft-Sphere.html#Soft-Sphere">Soft Sphere</a>
+<li><a accesskey="3" href="Square.html#Square">Square</a>
+<li><a accesskey="4" href="Lennard-Jones.html#Lennard-Jones">Lennard Jones</a>
+<li><a accesskey="5" href="Morse.html#Morse">Morse</a>
+<li><a accesskey="6" href="Murrel-Sorbie.html#Murrel-Sorbie">Murrel Sorbie</a>
+<li><a accesskey="7" href="Linear-Spline.html#Linear-Spline">Linear Spline</a>
+<li><a accesskey="8" href="Natural-Cubic-Splines.html#Natural-Cubic-Splines">Natural Cubic Splines</a>
+<li><a accesskey="9" href="Direct-Potential.html#Direct-Potential">Direct Potential</a>
+</ul>
+
+<!-- ====== new node/chap;sec;sub -->
+   </body></html>
+

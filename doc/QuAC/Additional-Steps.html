@@ -1,0 +1,65 @@
+<html lang="en">
+<head>
+<title>Additional Steps - QuAC Manual 1.0</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="QuAC Manual 1.0">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Calculation-Keywords.html#Calculation-Keywords" title="Calculation Keywords">
+<link rel="prev" href="R-min-and-R-max.html#R-min-and-R-max" title="R min and R max">
+<link rel="next" href="Save-Steps-at-each.html#Save-Steps-at-each" title="Save Steps at each">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+QuAC is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+QuAC - Quantum Atomic Collisions
+Copyright (C) 2009, 2010, 2011, 2012  Yuri Aoto-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Additional-Steps"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Save-Steps-at-each.html#Save-Steps-at-each">Save Steps at each</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="R-min-and-R-max.html#R-min-and-R-max">R min and R max</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Calculation-Keywords.html#Calculation-Keywords">Calculation Keywords</a>
+<hr>
+</div>
+
+<h4 class="subsection">7.3.12 Additional Steps</h4>
+
+<p>After the integration up to <var>r_max</var> and the eventual increasing of the step size, the integration is carried out some more points to be saved for further analysis. The number of steps of this extra integration is given by the keyword <code>AddSteps</code>. For <code>SCATT_LENGTH</code> calculation by the Meshkov procedure it consists of the number of steps in the mesh.
+
+   <p><strong>General syntax:</strong>
+
+<pre class="example">AddSteps <var>steps</var>
+</pre>
+   <p><a name="index-AddSteps-47"></a>
+<var>steps</var> is the number of the extra steps.
+
+   <p><strong>Incompatibilities:</strong>
+
+   <p>Has meaning only for <code>PHASE_SHIFTS</code> and <code>SCATT_LENGTH</code> calculations.
+
+   <p><strong>Default values:</strong>
+
+   <p>The default value for the additional steps is 1000.
+
+<!-- ====== new node/chap;sec;sub -->
+   </body></html>
+

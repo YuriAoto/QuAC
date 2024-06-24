@@ -1,0 +1,1884 @@
+This is QuAC.info, produced by makeinfo version 4.13 from QuAC.texinfo.
+
+QuAC is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+   This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+   QuAC - Quantum Atomic Collisions Copyright (C) 2009, 2010, 2011,
+2012  Yuri Aoto
+
+
+File: QuAC.info,  Node: Top,  Next: Overview,  Prev: (dir),  Up: (dir)
+
+QuAC Manual
+***********
+
+This manual is for QuAC, version 1.0.
+
+* Menu:
+
+* Overview::
+* Compiling and running::
+* Input::
+* Potentials::
+* Jobs::
+* Output::
+* Keywords::
+* Code::
+* Keyword Index::
+* Concept Index::
+
+ --- The Detailed Node Listing ---
+
+Potentials
+
+* Rigid Sphere::
+* Soft Sphere::
+* Square::
+* Lennard Jones::
+* Morse::
+* Murrel Sorbie::
+* Linear Spline::
+* Natural Cubic Splines::
+* Direct Potential::
+
+Jobs
+
+* Phase Shifts::
+* Scattering Length::
+* Bound States::
+* Results Analysis::
+
+Keywords
+
+* Masses and Atoms::
+* Format ::
+* Calculation Keywords::
+* Analysis Keywords::
+
+Calculation Keywords
+
+* Angular Momentum::
+* Energy and Velocity::
+* Integration Method::
+* Integration Step::
+* Print::
+* Normalisation::
+* Potential Name::
+* Initial Condition::
+* Save Steps::
+* Phase Shift Method::
+* R min and R max::
+* Additional Steps::
+* Save Steps at each::
+* Print Phase Shifts::
+* Save Global Potential::
+* Scattering Length Method::
+* Meshkov Parameters::
+* Richardson Extrapolation::
+* Vibrational Levels::
+* Vibrational Fixed Mesh::
+* Print Vibration Iterations::
+* Print WF Vibration Iterations::
+* Maximum Iteration::
+* Vibrational Threshold::
+* Vibrational R ini shift::
+
+Analysis Keywords
+
+* Analysis Type::
+* Angles::
+* Job Analysed::
+* Electric Dipole Function::
+* Frank Condon::
+* Electronic Transition::
+* CM System of Reference::
+* Dunhan Parameters::
+* Cross Section Unit::
+
+
+File: QuAC.info,  Node: Overview,  Next: Compiling and running,  Prev: Top,  Up: Top
+
+1 Overview
+**********
+
+Overview of QuAC.
+
+   A little bit of theory.
+
+   What QuAC does and
+
+
+File: QuAC.info,  Node: Compiling and running,  Next: Input,  Prev: Overview,  Up: Top
+
+2 Compiling and running
+***********************
+
+Compiling and running explanation.
+
+   Command options.
+
+
+File: QuAC.info,  Node: Input,  Next: Potentials,  Prev: Compiling and running,  Up: Top
+
+3 Input
+*******
+
+The input of QuAC is divided in two parts. The first contains the jobs
+informations and the second the potentials definitions. The first line
+of the input file is an job name. After, several jobs can be passed,
+which have the general syntax:
+
+JOB_TYPE [JOB_NAME]
+JOB_KEYWORDS
+...
+
+   JOB_TYPE is the type of the job (*note Jobs::) and the optional
+argument, JOB_NAME, is a name for this job. it is not completely
+optional, since if an posterior analysis of this job will be carried it
+is required. The number of jobs handled by QuAC is arbitrary and the
+keywords that follow this first line are concerned only to this job,
+with the exception of particles (*note Masses and Atoms::) and formats
+(*note Format::) definitions. Theses special keywords apply to the
+subsequent job, until another keyword override it.
+
+   There are two kinds of jobs in QuAC: jobs that does some calculation
+and jobs that analyses this calculations. QuAC calculates just what it
+is asked for and do not try to be smart and analyse the results if it
+is not explicitly required.
+
+   The potentials definitions must be placed after all the jobs. A
+keyword (*note Potential Name::) links the job and the potential that
+it will use.
+
+   Some keywords in the job and potential definitions can be given in
+any unit recognised by QuAC. Run `QuAC --units' to see the available
+units and conversion factors. These informations is stored in an ASCII
+file (the command `QuAC --units' provides it) and it is possible add
+new units or change the conversion factor changing it.
+
+
+File: QuAC.info,  Node: Potentials,  Next: Jobs,  Prev: Input,  Up: Top
+
+4 Potentials
+************
+
+QuAC handles different types of potentials/dipole moments functions and
+they must be given after all of the jobs. Multiples potentials can be
+given and the general syntax is:
+
+POTENTIAL NAME
+[Print LIN/LOG R_MIN R_MAX DELTA_R DIST_UNI ENER_UNI]
+TYPE LAMBDA DIST_UNI [ENER_UNI]
+...
+`parameters'
+...
+
+   or
+
+DIP_MOM NAME
+[Print LIN/LOG R_MIN R_MAX DELTA_R DIST_UNI ENER_UNI]
+TYPE LAMBDA DIST_UNI [ENER_UNI]
+...
+`parameters'
+...
+
+   The argument NAME is a name for the given potential, the optional
+keywords and variables in the second line ask for print the potential
+in the `.log' file, from R_MIN to R_MAX increasing by DELTA_R. LIN/LOG
+should be `Lin' or `Log' and means linear or logarithm r scale and
+DIST_UNI and ENER_UNI are the units the potential should be printed.
+TYPE is the type of potential and LAMBDA is the quantum number for the
+z-component of electronic angular momentum. DIST_UNI and ENER_UNI are
+the units the potential parameters will be given and do not need to be
+the same of the ones used in `Print' line.
+
+   Each type of potential have their specific syntax, described below,
+and must be placed just after these arguments.
+
+* Menu:
+
+* Rigid Sphere::
+* Soft Sphere::
+* Square::
+* Lennard Jones::
+* Morse::
+* Murrel Sorbie::
+* Linear Spline::
+* Natural Cubic Splines::
+* Direct Potential::
+
+
+File: QuAC.info,  Node: Rigid Sphere,  Next: Soft Sphere,  Prev: Potentials,  Up: Potentials
+
+4.1 Rigid Sphere
+================
+
+The rigid sphere potential, `HardSphere', is zero valued after a given
+distance, the radius, and the wave function must completely vanish at
+distances below the radius. Only for this type of potential the unit of
+energy is not required.
+
+   *Expression:*
+
+u_l(r) = 0.0   if r <= r_0
+V(r)   = 0.0   if r >  r_0
+
+   *General syntax:*
+
+RADIUS
+
+   RADIUS = r_0
+
+
+File: QuAC.info,  Node: Soft Sphere,  Next: Square,  Prev: Rigid Sphere,  Up: Potentials
+
+4.2 Soft Sphere
+===============
+
+`SoftSphere' define a soft sphere, which is also zero valued after a
+given distance, the radius, but below it has a repulsive exponential
+behaviour.
+
+   *Expression:*
+
+V(r) = D((r_0/r)^a - 1)       if r <= r_0
+V(r) = 0.0                    if r > r_0
+
+   *General syntax:*
+
+RADIUS EPSILON ALPHA
+
+   RADIUS = r_0, EPSILON = D, and ALPHA = a.
+
+
+File: QuAC.info,  Node: Square,  Next: Lennard Jones,  Prev: Soft Sphere,  Up: Potentials
+
+4.3 Square
+==========
+
+A square potential, keyword `Square', is given as an step like
+function, being zero if the distance is larger then a given radius and
+constant otherwise.
+
+   *Expression:*
+
+V(r) = D       if r <= r_0
+V(r) = 0.0     if r >  r_0
+
+   *General syntax:*
+
+RADIUS EPSILON
+
+   RADIUS = r_0, EPSILON = D.
+
+
+File: QuAC.info,  Node: Lennard Jones,  Next: Morse,  Prev: Square,  Up: Potentials
+
+4.4 Lennard Jones
+=================
+
+Lennard-Jones potentials can be given in multiples ways. The parameters
+can be given by `LenJon', which refers to the common (12,6) potential
+(first expression), and by `LenJon-N-M', which refers to a (N+M,N) type
+(second expression). The potential names `LSLenJon' and `LSLenJon-N-M' corresponds
+to a Lennard-Jones ((12,6) and (N+M,N), respectively) potentials whose
+parameters is obtained by least square over the given points.
+
+   *Expression:*
+
+   V(r) = D[(r_0/r)^12 - 2(r_0/r)^6]
+
+   V(r) = d[(R/r)^(N+M) - (R/r)^N]
+
+   *General syntax:*
+
+RADIUS EPSILON
+
+   or
+
+R_1 V_1
+R_2 V_2
+...
+R_N V_N
+
+   In the first case, RADIUS = r_0, the equilibrium distance, and
+EPSILON = D, the dissociation energy, for `LenJon' and `LenJon-N-M'
+potentials. Note that the parameters given are the equilibrium distance
+and the dissociation energy in both cases. The expression above for the
+general `LenJon-N-M' Lennard-Jones potential are in terms of the
+parameters d and R, related to r_0 and D by:
+
+   R = r_0[N/(N+M)]^(1/M)
+
+   d = D[(N+M)/M][(N+M)/N]^(N/M)
+
+   For a `LSLenJon' the points are given as in the second case.
+
+
+File: QuAC.info,  Node: Morse,  Next: Murrel Sorbie,  Prev: Lennard Jones,  Up: Potentials
+
+4.5 Morse
+=========
+
+The parameters of a Morse potential can be given explicitly, by the
+type `Morse', or as the ones which gives the same equilibrium distance,
+dissociation energy and force constant of the natural cubic splines
+over a given set of points, by the name `AppMorse'.  
+
+   *Expression:*
+
+   V(r) = D[(1 - exp(-B(r - r_0))) - 1]
+
+   *General syntax:*
+
+RADIUS EPSILON BETA
+
+   or
+
+R_1 V_1
+R_2 V_2
+...
+R_N V_N
+
+   RADIUS = r_0, EPSILON = D, BETA = B.  The second case is for
+`AppMorse' type.
+
+
+File: QuAC.info,  Node: Murrel Sorbie,  Next: Linear Spline,  Prev: Morse,  Up: Potentials
+
+4.6 Murrel Sorbie
+=================
+
+A Murrel Sorbie type of potential is defined by the keyword `MurSorbie'.  
+
+   *Expression:*
+
+   V(r) = D[1 + sum[_(i=1)^n](a_i(r-r_0)^i)]exp[-a_1(r-r_0)]
+
+   *General syntax:*
+
+RADIUS EPSILON
+A_1
+A_2
+...
+A_N
+   RADIUS = r_0, EPSILON = D, A_I = a_i, I=1,2,...,n.
+
+
+File: QuAC.info,  Node: Linear Spline,  Next: Natural Cubic Splines,  Prev: Murrel Sorbie,  Up: Potentials
+
+4.7 Linear Spline
+=================
+
+`LinearSpl' asks for a potential as a linear spline over the points
+given. The energy after the last point is set constant and equal to the
+energy of this last point.
+
+   *General syntax:*
+
+R_1 V_1
+R_2 V_2
+...
+R_N V_N
+
+
+File: QuAC.info,  Node: Natural Cubic Splines,  Next: Direct Potential,  Prev: Linear Spline,  Up: Potentials
+
+4.8 Natural Cubic Splines
+=========================
+
+Cubic splines are piecewise cubic functions, with continuous first and
+second derivatives in the range between the first and the last points,
+which interpolates the given points. QuAC uses the natural cubic
+splines, whose second derivative in the first and last points are zero.
+For the `NatCubSpl' type of potentials the energy is set constant and
+equal to the energy of the last point for distances larger than the
+last given energy.
+
+   The `CubSplr6' and `CubSplr6r8' are calculated as C_6/r^6 and as
+C_6/r^6 + C_8/r^8, respectively, for distances larger than the last
+distance given, and the coefficients are calculated in order to join
+this tail smoothly with the cubic spline. For the second case, where
+one more condition is required, the spline is calculated without the
+last point, whose energy is treated as being the asymptotic limit of
+this long range behaviour.
+
+   The coefficients of the long range tail of the potential can be
+supplied using the potential types `CubSplFitr6', `CubSplFitr6r8', and
+`CubSplFitr6r8r10'.  For these potentials the potential after the last
+distance is calculated as C_6/r^6, C_6/r^6 + C_8/r^8, and C_6/r^6 +
+C_8/r^8 + C_10/r^10, respectively.
+
+   *General syntax:*
+
+R_1 V_1
+R_2 V_2
+...
+R_N V_N
+
+   or
+
+R_1 V_1
+R_2 V_2
+...
+R_N V_N
+R_INF V_INF
+
+   or
+
+COEF_R6
+R_1 V_1
+R_2 V_2
+...
+R_N V_N
+
+   or
+
+COEF_R6 COEF_R8
+R_1 V_1
+R_2 V_2
+...
+R_N V_N
+
+   or
+
+COEF_R6 COEF_R8 COEF_R10
+R_1 V_1
+R_2 V_2
+...
+R_N V_N
+
+   R_I and V_I, I=1,2,...,n,inf are distance/energy the points. The
+first case is for `NatCubSpl' and `CubSplr6', the second for
+`CubSplr6r8' and the last three for `CubSplFitr6r', `CubSplFitr6r8',
+and `CubSplFitr6r8r10', where COEF_R6 COEF_R8 COEF_R10 are the
+coefficients C_6, C_8, and C_10.
+
+
+File: QuAC.info,  Node: Direct Potential,  Prev: Natural Cubic Splines,  Up: Potentials
+
+4.9 Direct Potential
+====================
+
+Calculations can be carried using a direct potential, where the energy
+is get directly from the output of an electronic structure calculation.
+
+   *General syntax:*
+
+ELEC_STRUC_COMMAND
+GET_ENER_COMMAND
+RM_COMMAND
+KEYWORD FORMAT_ENER FORMAT_DIST
+R_INF ZERO_E_RET LOWER_BOUND UPPER_BOUND EQ_DIST FORCE_CONST
+ELEC_STRUC_INPUT
+...
+
+   Here, ELEC_STRUC_COMMAND is the command to run the electronic
+structure calculation, GET_ENER_COMMAND is a command to print, in the
+standard output, the energy (that will be read by QuAC using the format
+FORMAT_ENER), and RM_COMMAND is a command to delete the files from the
+electronic structure calculation. KEYWORD is a word in the input file
+of the electronic structure that will be replaced by the distance to be
+calculated, using the fortran format FORMAT_DIST. In the following line
+some properties of the potential that are automatically computed by
+QuAC for other potentials must be given, since the electronic structure
+programs usually have efficient procedures to calculate them. R_INF is
+the distance at which the particles can be considered isolated (this
+distance will be used to calculate the dissociation energy), ZERO_E_RET
+is the zero energy turning point, LOWER_BOUND and UPPER_BOUND are
+distances to be considered lower and upper bound of the potential, that
+is, the potential is assumed to be infinity below LOWER_BOUND and
+almost constant after UPPER_BOUND (but is also calculated directly
+after this point). EQ_DIST and FORCE_CONST are the equilibrium distance
+and the force constant and should be negative if the potential is
+repulsive.
+
+   The rest of the definition until a the end of the potential
+definition (the end of the input file or a line starting with
+`POTENTIAL' or `DIP_MOM') is the input file to be used in the
+electronic structure calculation. It depends, of course, of the program
+and every instance of the keyword KEYWORD in it will be replaced by the
+distance.
+
+
+File: QuAC.info,  Node: Jobs,  Next: Output,  Prev: Potentials,  Up: Top
+
+5 Jobs
+******
+
+QuAC handle an arbitrary number of jobs and they are executed
+sequentially. Here is a general discussion of what each job does.
+
+* Menu:
+
+* Phase Shifts::
+* Scattering Length::
+* Bound States::
+* Results Analysis::
+
+
+File: QuAC.info,  Node: Phase Shifts,  Next: Scattering Length,  Prev: Jobs,  Up: Jobs
+
+5.1 Phase Shifts
+================
+
+The first type of job implemented in QuAC is a phase shift calculation and
+this is for what QuAC was first designed (QuAC stands for *Qu*antum
+*A*tomic *C*ollision). In this jobs the radial Schrödinger equation is
+integrated for positive energy values (relative to the dissociation
+limit) and the phase shift is obtained by the analysis of the behaviour
+of the wave function in the long non interacting range of the potential,
+u_l(r) = sin(d_l) j_l(kr) + cos(d_l) n_l(kr), where d_l is the phase
+shift, j_l and n_l are the spherical Bessel functions of first and
+second kind, and k^2 = 2mE/(h/2 pi)^2.
+
+   QuAC stores the phase shifts for posterior analysis.
+
+
+File: QuAC.info,  Node: Scattering Length,  Next: Bound States,  Prev: Phase Shifts,  Up: Jobs
+
+5.2 Scattering Length
+=====================
+
+The scattering length is calculated by the asymptotic analysis of the
+zero energy and zero angular momentum wave function at large distances.
+It behaves as u_0(r) = Ar + B, with a = - B/A.
+
+   The scattering length can also be computed by the integration of the
+log-derivative equation, as described by Meshkov (REF). This is done
+using `MESHKOV' as method of scattering length (*note Scattering Length
+Method::).
+
+
+File: QuAC.info,  Node: Bound States,  Next: Results Analysis,  Prev: Scattering Length,  Up: Jobs
+
+5.3 Bound States
+================
+
+The vibrational bound states can be obtained by the second order
+algorithm of Cooley and Lowdin (REF). They can be calculated in three
+ways. QuAC can calculate exactly the ones required, by the keywords
+`VibLevel' or `VibLevelMax' (*note Vibrational Levels::), use the
+energies given as starting points for the algorithm or calculate all
+the vibrational levels, if neither the energies nor the vibrational
+levels were given. QuAC automatically stores the energy, vibrational
+level, number of iterations and wave function for posterior analysis.
+
+
+File: QuAC.info,  Node: Results Analysis,  Prev: Bound States,  Up: Jobs
+
+5.4 Results Analysis
+====================
+
+The calculations carried by Phase Shifts or Bound States calculations
+can be analysed in this job. The analysis implemented are the
+calculation of the total, partial and differential cross sections, for
+Phase Shifts results, and vibrational transition intensities, Dunhan
+parameters and vibrationally averaged equilibrium distances for Bound
+States results. Only one analysis is carried by each Results Analysis
+job and must be asked by the keyword `AnalysisType' (*note Analysis
+Type::).
+
+
+File: QuAC.info,  Node: Output,  Next: Keywords,  Prev: Jobs,  Up: Top
+
+6 Output
+********
+
+QuAC generates two output files. One, with an extension `.out', print
+the input, most import information, like parameters of calculations,
+results and masses. The other, with an extension `.log', print
+secondary informations, like potential information, the wave function
+(if requested), phase shifts (if requested), etc.
+
+
+File: QuAC.info,  Node: Keywords,  Next: Code,  Prev: Output,  Up: Top
+
+7 Keywords
+**********
+
+The behaviour of the calculations carried by QuAC can be modified by
+several keywords, some optional and some mandatory for some
+calculations. The keywords for masses (*note Masses and Atoms::) and
+format (*note Format::) specification are the only that are given
+outside the jobs and are applied to all calculation, until another
+format or mass specification is reached, which overwrite the previous
+definitions.
+
+   All the other keywords apply for the concerned job. They have one of
+the general syntaxes:
+
+keyword [ARGUMENTS ...]
+[ARGUMENTS]
+[...]
+[ARGUMENTS]
+
+   Whether some or all of the arguments are required depends on
+`keyword'.
+
+* Menu:
+
+* Masses and Atoms::
+* Format ::
+* Calculation Keywords::
+* Analysis Keywords::
+
+
+File: QuAC.info,  Node: Masses and Atoms,  Next: Format,  Prev: Keywords,  Up: Keywords
+
+7.1 Masses and Atoms
+====================
+
+The keywords `MASSES', `RED_MASS' and `ATOMS' can be used to define the
+masses of the particles. The first two are used to give directly the
+numerical value of the masses, along with the unit, and the last to
+give the atomic symbols and use the corresponding masses from the
+atomic data library of QuAC. A list of the atoms and the syntax of
+atomic symbols available can be viewed running `QuAC --atoms'.  
+
+   *General syntax:*
+
+MASSES MASS_1 MASS_2 UNIT
+
+   or
+
+RED_MASS REDUCED_MASS UNIT
+
+   or
+
+ATOMS ATOM_1 ATOM_2
+
+   MASS_1 and MASS_2 are the masses of the particles, REDUCED_MASS is
+the reduced mass of the two particle system, and ATOM_1 and ATOM_2 are
+atomic symbols. UNIT is an unit of mass.
+
+   *Incompatibilities:*
+
+   If a differential cross section in the laboratory system of
+reference will be calculated, the mass of both particles should be
+given.
+
+   *Default values:*
+
+   ANALYSE DEFAULT VALUES. WHEN MASS DEFINITION CAN BE SKIPPED?
+
+
+File: QuAC.info,  Node: Format,  Next: Calculation Keywords,  Prev: Masses and Atoms,  Up: Keywords
+
+7.2 Format
+==========
+
+The format for output print can be specified with the keyword `FORMAT'.  
+
+   *General syntax:*
+
+FORMAT
+QUANTITY FORMAT
+QUANTITY FORMAT
+...
+QUANTITY FORMAT
+
+   QUANTITY can be one of the following: `energy', `energy_cm-1',
+`cross_sec', `angle', `ang_momentum', `distance', `wave_function', or
+`potential'. FORMAT is any valid fortran format (without the enclosing
+parentheses) for `REAL' or `INTEGER' kind of variable, depending, of
+course, of QUANTITY. All the formats can be restored to default values
+using `default' as QUANTITY, case in which no FORMAT need to be passed.
+
+   *Incompatibilities:*
+
+   There are no incompatibilities for this keyword.
+
+   *Default values:*
+
+   The default formats are: `ES15.8' for `energy', `ES15.8' for
+`cross_section', `F0.10' for `angle', `I0' for `ang_momentum', `F0.10'
+for `distance', `ES15.8' for `wave_function', `ES17.10' for
+`potential', and `F0.5' for `energy_cm1'
+
+
+File: QuAC.info,  Node: Calculation Keywords,  Next: Analysis Keywords,  Prev: Format,  Up: Keywords
+
+7.3 Calculation Keywords
+========================
+
+Calculation keywords.
+
+* Menu:
+
+* Angular Momentum::
+* Energy and Velocity::
+* Integration Method::
+* Integration Step::
+* Print::
+* Normalisation::
+* Potential Name::
+* Initial Condition::
+* Save Steps::
+* Phase Shift Method::
+* R min and R max::
+* Additional Steps::
+* Save Steps at each::
+* Print Phase Shifts::
+* Save Global Potential::
+* Scattering Length Method::
+* Meshkov Parameters::
+* Richardson Extrapolation::
+* Vibrational Levels::
+* Vibrational Fixed Mesh::
+* Print Vibration Iterations::
+* Print WF Vibration Iterations::
+* Maximum Iteration::
+* Vibrational Threshold::
+* Vibrational R ini shift::
+
+
+File: QuAC.info,  Node: Angular Momentum,  Next: Energy and Velocity,  Prev: Calculation Keywords,  Up: Calculation Keywords
+
+7.3.1 Angular Momentum
+----------------------
+
+The specification of the angular momentum for `PHASE_SHIFTS' and for
+`BOUND_STATES' calculations can be done giving the individuals values
+or the maximum value and must be given just once.
+
+   *General syntax:*
+
+l
+L_1
+L_2
+...
+L_N
+   
+   or
+
+lmax L_MAX
+   
+   L_1, L_2, L_N, L_MAX must be integers and the later case is
+equivalent to give all values from zero to the maximum values specified.
+
+   *Incompatibilities:*
+
+   The value of angular momentum should not be given for a
+`SCATT_LENGTH' calculation, since it does only zero angular momentum
+integration.
+
+   *Default values:*
+
+   There is no default values for `PHASE_SHIFTS' calculation and it
+always must be given. For `BOUND_STATES', only the zero rotational
+levels are calculated by default.
+
+
+File: QuAC.info,  Node: Energy and Velocity,  Next: Integration Method,  Prev: Angular Momentum,  Up: Calculation Keywords
+
+7.3.2 Energy and Velocity
+-------------------------
+
+The energy for the calculation can be given individually, in a range or
+in an exponential range. It can be given as energy or as velocity and
+the UNIT must be consistent with this choice.
+
+   *General syntax:*
+
+Energy UNIT
+ENERGY_1
+ENERGY_2
+...
+ENERGY_N
+   
+   or
+
+InterEnergy E_MIN E_MAX DELTA_E UNIT
+   
+   or
+
+ExpInterEnergy EXP_MIN EXP_MAX DELTA_EXP UNIT
+   
+   In the first case the values of ENERGY_1, ENERGY_2, and ENERGY_N are
+the energies required. In the second, the values of energy are between
+E_MIN (including) and E_MAX, increasing by DELTA_E. In the later case
+the range is given in the exponent (base 10). Analogously, replacing
+`Energy' by `Velocity', the values can be given as the collision
+velocity.
+
+   *Incompatibilities:*
+
+   It is not allowed pass velocity For a `BOUND_STATES' calculation.
+
+   *Default values:*
+
+   For `PHASE_SHIFTS' there are no default values and the energy is
+mandatory. For `SCATT_LENGTH' the integration is carried at zero energy
+by default. The behaviour of a `BOUND_STATES' calculation with no
+energy given explicitly depends on the vibrational levels required.
+(*Note Bound States::.)
+
+
+File: QuAC.info,  Node: Integration Method,  Next: Integration Step,  Prev: Energy and Velocity,  Up: Calculation Keywords
+
+7.3.3 Integration Method
+------------------------
+
+The numerical integration can be performed by fourth-order Runge-Kutta,
+Adams-Bashforth-Moulton predictor-corrector, Numerov, or Johnson
+log-derivative method. It is specified by the keyword `IntMeth'
+
+   *General syntax:*
+
+IntMeth INT_METHOD
+   
+   Here `int_method' is the integration method and can be RK4, ABM,
+NUMEROV, or JOHNSON.
+
+   *Incompatibilities:*
+
+   The Johnson log-derivative method is implemented only for
+`SCATT_LENGTH' calculations by the Meshkov procedure, for which is
+required. (*Note Scattering Length::.)
+
+   *Default values:*
+
+   The default integration method is the Numerov, with the exception of
+the Meshkov procedure for scattering length calculation, which requires
+the Johnson log-derivative method.
+
+
+File: QuAC.info,  Node: Integration Step,  Next: Print,  Prev: Integration Method,  Up: Calculation Keywords
+
+7.3.4 Integration Step
+----------------------
+
+The integration step of the numerical integration can be changed using
+the `IntStep' and `FinalIntStep' keywords. The first gives the step
+size of the integration through the interaction region. This step can
+be iteratively doubled in the long range region of the potential until
+the value specified by the second keyword. The units of the integration
+steps specified by these keywords are the same of the distance unit
+used in the potential definition.
+
+   *General syntax:*
+
+IntStep STEP
+   
+   or
+
+FinalIntStep STEP
+   
+   STEP is the step size in the unit used in the potential of the
+current job.
+
+   *Incompatibilities:*
+
+   The `IntStep' keyword should not be given for a scattering length by
+the Meshkov procedure. Use `AddSteps' instead, to give the size of the
+integration mesh, *note Additional Steps::. `FinalIntStep' can be given
+only for `PHASE_SHIFTS' and `SCATT_LENGTH' calculations. Must be
+greater or equal the integration step.  
+
+   *Default values:*
+
+   The default integration step is rho = kr = 0.005 .(*Note Overview::.)
+
+
+File: QuAC.info,  Node: Print,  Next: Normalisation,  Prev: Integration Step,  Up: Calculation Keywords
+
+7.3.5 Print
+-----------
+
+The wave function can be printed in the `.log' file using the keyword
+`Print'. Since most calculations involves several integration, take
+care because huge files may be generated even for medium size
+calculations!
+
+   *General syntax:*
+
+Print PRINT_INTERVAL
+   
+   The wave function will be printed at each PRINT_INTERVAL steps.
+
+   *Incompatibilities:*
+
+   Currently is not possible print the final vibrational wave function
+if `SaveGlobalPot' (*note Save Global Potential::) is given.
+
+   *Default values:*
+
+   By default the wave function is not printed.
+
+
+File: QuAC.info,  Node: Normalisation,  Next: Potential Name,  Prev: Print,  Up: Calculation Keywords
+
+7.3.6 Normalisation
+-------------------
+
+The normalisation of the wave function can be controlled using the
+keyword `WFScale'. It can be used to avoid overflow or underflow for
+some problematic cases or to print wave functions scaled as your desire.
+
+   *General syntax:*
+
+WFScale SCALE
+   
+   The initial condition of the numerical integration will be
+multiplied by the SCALE argument.
+
+   *Incompatibilities:*
+
+   There are no incompatibilities for this keyword.
+
+   *Default values:*
+
+   The default value of SCALE is 1.
+
+
+File: QuAC.info,  Node: Potential Name,  Next: Initial Condition,  Prev: Normalisation,  Up: Calculation Keywords
+
+7.3.7 Potential Name
+--------------------
+
+The keyword `PotName' should be used to define the potential that will
+be used in the job. It should be the name of one of the potentials
+given in the input. (*Note Potentials::.)
+
+   *General syntax:*
+
+PotName POTENTIAL_NAME
+   
+   POTENTIAL_NAME is the name of the potential to be used in this job.
+
+   *Incompatibilities:*
+
+   There are no incompatibilities for this keyword.
+
+   *Default values:*
+
+   If just one potential was defined in the input, this is the default
+potential and this keyword is not required. if more than one potential
+was given, there is no potential default and it should be passed.
+
+
+File: QuAC.info,  Node: Initial Condition,  Next: Save Steps,  Prev: Potential Name,  Up: Calculation Keywords
+
+7.3.8 Initial Condition
+-----------------------
+
+The initial condition of the free particle (the value of the function
+in the first point is not zero, *Note Overview::,) can be used, by the
+keyword `FPIniCond'.
+
+   *General syntax:*
+
+FPIniCond
+   
+   *Incompatibilities:*
+
+   There are no incompatibilities for this keyword. CHANGE THE
+BOUND---> INWARD INTEGRATION WILL FAIL!!
+
+   *Default values:*
+
+   The initial condition of the free particle is used by default just
+for calculations on `FREE_PARTICLE' or `Square' potentials. In the
+other cases the derivative is the one of the free particle and the
+value of the function is set to zero at the initial integration point.
+
+
+File: QuAC.info,  Node: Save Steps,  Next: Phase Shift Method,  Prev: Initial Condition,  Up: Calculation Keywords
+
+7.3.9 Save Steps
+----------------
+
+The steps saved in the end of the numerical integration for posterior
+analysis can be printed in the `.log' file using the `SaveSteps'
+keyword.
+
+   *General syntax:*
+
+SaveSteps
+   
+   *Incompatibilities:*
+
+   There are no incompatibilities for this keyword.
+
+   *Default values:*
+
+   The points are not printed in the `.log' file by default.
+
+
+File: QuAC.info,  Node: Phase Shift Method,  Next: R min and R max,  Prev: Save Steps,  Up: Calculation Keywords
+
+7.3.10 Phase Shift Method
+-------------------------
+
+The phase shift calculation method can be changed using the keyword
+`PhaseShiftMeth'. _Nowadays only one phase shift method is implemented!_
+
+   *General syntax:*
+
+PhaseShiftMeth METHOD
+   
+   The only value for METHOD implemented is `REGRESSION'.
+
+   *Incompatibilities:*
+
+   It is valid just for a `PHASE_SHIFTS' calculation.
+
+   *Default values:*
+
+   The default phase shift calculation method is `REGRESSION'.
+
+
+File: QuAC.info,  Node: R min and R max,  Next: Additional Steps,  Prev: Phase Shift Method,  Up: Calculation Keywords
+
+7.3.11 R min and R max
+----------------------
+
+The initial and final points of the numerical integration are changed
+using the `Rmin' and `Rmax' keywords, respectively. Like the
+integration step, they are given in the unit used in the potential
+definition of the current job.
+
+   *General syntax:*
+
+Rmin R_MIN
+   
+   or
+
+Rmax R_MAX
+   
+   *Incompatibilities:*
+
+   For a `BOUND_STATES' calculation they can be passed only in a fixed
+mesh calculation. (*Note Bound States::.). The value of R_MIN can not
+be lower than the lower bound of the corresponding potential. (*Note
+Potentials::.)
+
+   *Default values:*
+
+   The default value of R_MIN and R_MAX are the lower and the upper
+bound of the potential, respectively. If the lower bound is zero it
+will depend of the potential.(*Note Potentials::.)
+
+
+File: QuAC.info,  Node: Additional Steps,  Next: Save Steps at each,  Prev: R min and R max,  Up: Calculation Keywords
+
+7.3.12 Additional Steps
+-----------------------
+
+After the integration up to R_MAX and the eventual increasing of the
+step size, the integration is carried out some more points to be saved
+for further analysis. The number of steps of this extra integration is
+given by the keyword `AddSteps'. For `SCATT_LENGTH' calculation by the
+Meshkov procedure it consists of the number of steps in the mesh.
+
+   *General syntax:*
+
+AddSteps STEPS
+   
+   STEPS is the number of the extra steps.
+
+   *Incompatibilities:*
+
+   Has meaning only for `PHASE_SHIFTS' and `SCATT_LENGTH' calculations.
+
+   *Default values:*
+
+   The default value for the additional steps is 1000.
+
+
+File: QuAC.info,  Node: Save Steps at each,  Next: Print Phase Shifts,  Prev: Additional Steps,  Up: Calculation Keywords
+
+7.3.13 Save Steps at each
+-------------------------
+
+The interval at each steps are saved in the additional integration can
+be set using the `SaveAtEach' keyword.
+
+   *General syntax:*
+
+SaveAtEach INTERVAL
+   
+   INTERVAL is the interval at which each step are saved.
+
+   *Incompatibilities:*
+
+   Do not have meaning for `SaveAtEach' for `BOUND_STATES' or
+`SCATT_LENGTH' by Meshkov procedure calculations.
+
+   *Default values:*
+
+   Points are saved at every step, i.e., the default value of INTERVAL
+is 1.
+
+
+File: QuAC.info,  Node: Print Phase Shifts,  Next: Save Global Potential,  Prev: Save Steps at each,  Up: Calculation Keywords
+
+7.3.14 Print Phase Shifts
+-------------------------
+
+To print the phase shifts in the `.log' file use the keyword
+`PrintPhaseShift'
+
+   *General syntax:*
+
+PrintPhaseShift
+   
+   *Incompatibilities:*
+
+   Have meaning only for `PHASE_SHIFTS' calculations.
+
+   *Default values:*
+
+   The phase shifts are not printed by default.
+
+
+File: QuAC.info,  Node: Save Global Potential,  Next: Scattering Length Method,  Prev: Print Phase Shifts,  Up: Calculation Keywords
+
+7.3.15 Save Global Potential
+----------------------------
+
+In order to save computing time, the potential at every point needed in
+a calculation can be calculated just once and stored. This is useful
+specially for computing demanding potentials, like `Direct' potential.
+
+   *General syntax:*
+
+SaveGlobalPot
+   
+   *Incompatibilities:*
+
+   Not implemented for `SCATT_LENGTH' calculation, since only one
+calculation is carried. For a `BOUND_STATES' calculation require a
+fixed mesh points integration. (*Note Vibrational Fixed Mesh::.)
+
+   *Default values:*
+
+   Do not save the potential by default.
+
+
+File: QuAC.info,  Node: Scattering Length Method,  Next: Meshkov Parameters,  Prev: Save Global Potential,  Up: Calculation Keywords
+
+7.3.16 Scattering Length Method
+-------------------------------
+
+One of the two methods available to calculate the scattering length can
+be specified by the keyword `ScattLenMeth'.(*Note Scattering Length::.)
+
+   *General syntax:*
+
+ScattLenMeth METHOD
+   
+   METHOD can be `DIRECT' or `MESHKOV'.
+
+   *Incompatibilities:*
+
+   Have meaning only for `SCATT_LENGTH' calculation.
+
+   *Default values:*
+
+   The default method is the `DIRECT'.
+
+
+File: QuAC.info,  Node: Meshkov Parameters,  Next: Richardson Extrapolation,  Prev: Scattering Length Method,  Up: Calculation Keywords
+
+7.3.17 Meshkov Parameters
+-------------------------
+
+The Meshkov parameters, r_bar and beta (*Note Scattering Length::.),
+are required for a Meshkov procedure for scattering length calculation.
+It can be given with the keyword `MeshkovParam'.
+
+   *General syntax:*
+
+MeshkovParam R_BAR BETA
+   
+   The R_BAR and BETA arguments are the Meshkov parameters and R_BAR
+must be given in the units used in the potential of the current job.
+
+   *Incompatibilities:*
+
+   Have meaning only for scattering length calculations by the Meshkov
+procedure.
+
+   *Default values:*
+
+   Do not have default values. Must be given in a Meshkov calculation.
+
+
+File: QuAC.info,  Node: Richardson Extrapolation,  Next: Vibrational Levels,  Prev: Meshkov Parameters,  Up: Calculation Keywords
+
+7.3.18 Richardson Extrapolation
+-------------------------------
+
+A Meshkov calculation with the Richardson extrapolation to zero step
+size can be achieved using the keyword `RichardsonExtr'.
+
+   *General syntax:*
+
+RichardsonExtr
+   
+   *Incompatibilities:*
+
+   Have meaning only for scattering length calculations by the Meshkov
+procedure.
+
+   *Default values:*
+
+   By default the Richardson extrapolation is not done.
+
+
+File: QuAC.info,  Node: Vibrational Levels,  Next: Vibrational Fixed Mesh,  Prev: Richardson Extrapolation,  Up: Calculation Keywords
+
+7.3.19 Vibrational Levels
+-------------------------
+
+The required vibrational levels for a `BOUND_STATES' calculation can be
+specified  in two ways, similar to the specification of the angular
+momentum. (*Note Angular Momentum::.)
+
+   *General syntax:*
+
+VibLevel
+V_1
+V_2
+...
+V_N
+   
+   or
+
+VibLevelMax V_MAX
+   
+   Here, V_1, V_2, V_N, and V_MAX are integers and correspond to the
+vibrational levels required. The second case is equivalent to ask for
+the levels 0, 1, ..., v_max by the first.
+
+   *Incompatibilities:*
+
+   Have meaning only for a `BOUND_STATES' calculation.
+
+   *Default values:*
+
+   If not passed in a vibrational calculation, QuAC attempt to
+calculate every vibrational level.
+
+
+File: QuAC.info,  Node: Vibrational Fixed Mesh,  Next: Print Vibration Iterations,  Prev: Vibrational Levels,  Up: Calculation Keywords
+
+7.3.20 Vibrational Fixed Mesh
+-----------------------------
+
+In order to run a calculation with the potential calculated just once
+(*Note Save Global Potential::,) the integration mesh must be fixed and
+this should be asked by the `VibFixedMesh' keyword. _QuAC do not tries
+to be smart and save a global potential just because you ask for a
+fixed mesh calculation or vice-versa! It must be done manually!_
+
+   *General syntax:*
+
+VibFixedMesh
+   
+   *Incompatibilities:*
+
+   Have meaning only for a `BOUND_STATES' calculation.
+
+   *Default values:*
+
+   It do not run a fixed mesh calculations by default.
+
+
+File: QuAC.info,  Node: Print Vibration Iterations,  Next: Print WF Vibration Iterations,  Prev: Vibrational Fixed Mesh,  Up: Calculation Keywords
+
+7.3.21 Print Vibration Iterations
+---------------------------------
+
+The information of each iteration for a `BOUND_STATES' calculations can
+be printed if requested by the `PrintVibIterations' keyword.
+
+   *General syntax:*
+
+PrintVibIterations
+   
+   *Incompatibilities:*
+
+   Have meaning only for a `BOUND_STATES' calculation.
+
+   *Default values:*
+
+   The iterations are not printed by default.
+
+
+File: QuAC.info,  Node: Print WF Vibration Iterations,  Next: Maximum Iteration,  Prev: Print Vibration Iterations,  Up: Calculation Keywords
+
+7.3.22 Print WF Vibration Iterations
+------------------------------------
+
+If the keyword `PrintVibWFIterations' is given, the wave function will
+be printed in every iteration for a `BOUND_STATES' calculation. The
+keyword `Print' (*Note Print::,) can be used to define the interval
+that the wave function will be printed.
+
+   *General syntax:*
+
+PrintVibWFIterations
+   
+   *Incompatibilities:*
+
+   Have meaning only for a `BOUND_STATES' calculation.
+
+   *Default values:*
+
+   The vibrational wave function for each iterations are not printed by
+default.
+
+
+File: QuAC.info,  Node: Maximum Iteration,  Next: Vibrational Threshold,  Prev: Print WF Vibration Iterations,  Up: Calculation Keywords
+
+7.3.23 Maximum Iteration
+------------------------
+
+The maximum number of iterations in a vibrational calculation can be
+specified using the keywords `Vib1stOrderMaxIter' and `VibMaxIter'. The
+first is the maximum number of iterations of the first order halving
+algorithm, used to approach to the desired eigenvalue, and the second
+is the maximum total number of iterations.
+
+   *General syntax:*
+
+Vib1stOrderMaxIter MAXIT_1
+   
+   or
+
+VibMaxIter MAXIT_TOT
+
+   The values MAXIT_1 and MAXIT_TOT are the maximum number of
+iterations, of the first order and total algorithm, respectively.
+
+   *Incompatibilities:*
+
+   Have meaning only for a `BOUND_STATES' calculation.
+
+   *Default values:*
+
+   The default value for MAXIT_1 is 20 and for MAXIT_TOT is 50.
+
+
+File: QuAC.info,  Node: Vibrational Threshold,  Next: Vibrational R ini shift,  Prev: Maximum Iteration,  Up: Calculation Keywords
+
+7.3.24 Vibrational Threshold
+----------------------------
+
+The threshold of the vibrational calculation is specified with the
+keyword `VibThreshold'.
+
+   *General syntax:*
+
+VibThreshold THRESHOLD
+   
+   THRESHOLD is the threshold in cm-1 , if the energy was not given for
+this job or in the same used in the energy specification.
+
+   *Incompatibilities:*
+
+   Have meaning only for a `BOUND_STATES' calculation.
+
+   *Default values:*
+
+   The default value is 1.0E-5 cm-1 .
+
+
+File: QuAC.info,  Node: Vibrational R ini shift,  Prev: Vibrational Threshold,  Up: Calculation Keywords
+
+7.3.25 Vibrational R ini shift
+------------------------------
+
+The first point in the outward and inward integration can be specified
+by keyword `VibRiniShift'. Its arguments correspond to how much away
+from the classical turning points the integration should start.
+
+   *General syntax:*
+
+VibRiniShift SHIFT_INT SHIFT_EXT
+   
+   The outward integration will begin at `ICTP' - SHIFT_INT, where
+`ICTP' is the internal classical turning point, in the unit used in the
+potential definition. CHECK!!!! Analogously for SHIFT_EXT
+
+   *Incompatibilities:*
+
+   incompatibilities
+
+   *Default values:*
+
+   default
+
+
+File: QuAC.info,  Node: Analysis Keywords,  Prev: Calculation Keywords,  Up: Keywords
+
+7.4 Analysis Keywords
+=====================
+
+Analysis keywords.
+
+* Menu:
+
+* Analysis Type::
+* Angles::
+* Job Analysed::
+* Electric Dipole Function::
+* Frank Condon::
+* Electronic Transition::
+* CM System of Reference::
+* Dunhan Parameters::
+* Cross Section Unit::
+
+
+File: QuAC.info,  Node: Analysis Type,  Next: Angles,  Prev: Analysis Keywords,  Up: Analysis Keywords
+
+7.4.1 Analysis Type
+-------------------
+
+The analysis type to be performed by the job should be given by the
+`AnalysisType' keyword.
+
+   *General syntax:*
+
+AnalysisType TYPE
+   
+   Here, TYPE is the analysis type and can be one of the followings:
+`PartialCrossSec', `TotalCrossSec', `DifferentialCrossSec',
+`VibrationalIntensity', `DunhanExpansion', and `EquilibriumDistance'.
+(*Note Overview::.)
+
+   *Incompatibilities:*
+
+   The analysis type must be consistent with the job to be analysed.
+Hence `PartialCrossSec', `TotalCrossSec', and `DifferentialCrossSec'
+can be asked only for `PHASE_SHIFTS' calculations and
+`VibrationalIntensity', `DunhanExpansion', and `EquilibriumDistance'
+only for `BOUND_STATES' calculations.
+
+   *Default values:*
+
+   There are no default values for this keyword and it must be passed
+for every `RES_ANALYSIS' job.
+
+
+File: QuAC.info,  Node: Angles,  Next: Job Analysed,  Prev: Analysis Type,  Up: Analysis Keywords
+
+7.4.2 Angles
+------------
+
+The angles for an differential cross section analysis must be passed by
+the `Angle' or `InterAngle' keywords.
+
+   *General syntax:*
+
+Angle
+ANGLE_1
+ANGLE_2
+...
+ANGLE_N
+   
+   or
+
+InterAngle A_MIN A_MAX DELTA_A
+   
+   The values ANGLE_1, ANGLE_2, and ANGLE_N, for the first case, are
+the angles required, in degree. In the second the angles are from A_MIN
+(including) to A_MAX, increasing by DELTA_A.
+
+   *Incompatibilities:*
+
+   Have meaning only for a `DifferentialCrossSec' analysis type.
+
+   *Default values:*
+
+   There are no default values for angles and it must be given for
+every differential cross section calculation.
+
+
+File: QuAC.info,  Node: Job Analysed,  Next: Electric Dipole Function,  Prev: Angles,  Up: Analysis Keywords
+
+7.4.3 Job Analysed
+------------------
+
+The job or the jobs to be analysed must be given with the keywords
+`Job' and `Jobs'.
+
+   *General syntax:*
+
+Job JOB_NAME
+   or
+
+Jobs JOB_NAME_1 JOB_NAME_2
+   
+   JOB_NAME, JOB_NAME_1, and JOB_NAME_2 are the names of the jobs. The
+first can be given with spaces and the complete name are properly
+recognised, but for the second keyword the job names, JOB_NAME_1 or
+JOB_NAME_2 can not have spaces. To give two jobs when both or one of
+them have spaces use the keyword JOB twice.
+
+   *Incompatibilities:*
+
+   The job required should be consistent with the analysis type. (*Note
+Analysis Type::.) The only analysis type which analyse two jobs is
+`VibrationalIntensity'. You can analyse only jobs calculated before the
+analysis.
+
+   *Default values:*
+
+   There are no default values for these keywords. The job (or jobs)
+must be passed for every analysis.
+
+
+File: QuAC.info,  Node: Electric Dipole Function,  Next: Frank Condon,  Prev: Job Analysed,  Up: Analysis Keywords
+
+7.4.4 Electric Dipole Function
+------------------------------
+
+The electric dipole moment function for an intensity analysis can be
+given with the keyword `ElecDipoleFunction'.
+
+   *General syntax:*
+
+ElecDipoleFunction DIP_NAME
+   
+   DIP_NAME is the name of the dipole moment function to be used in
+this analysis.
+
+   *Incompatibilities:*
+
+   Have meaning only for a `VibrationalIntensity' analysis. It is
+incompatible with the keyword `FrankCondon'.  
+
+   *Default values:*
+
+   There are no default value for this keyword. !!!CHANGE TO RECOGNISE
+IF ONLY ONE WAS GIVEN!!
+
+
+File: QuAC.info,  Node: Frank Condon,  Next: Electronic Transition,  Prev: Electric Dipole Function,  Up: Analysis Keywords
+
+7.4.5 Frank Condon
+------------------
+
+The vibrational intensity with the Frank Condon approximation can be
+carried using the keyword `FrankCondon'.
+
+   *General syntax:*
+
+FrankCondon AVE_DIP AVE_DIP_UNIT
+   
+   Here the AVE_DIP and AVE_DIP_UNIT arguments are the averaged
+electric transition dipole moment and its unit, respectively.
+
+   *Incompatibilities:*
+
+   Have meaning only for `VibrationalIntensity' analysis performed with
+two vibrational jobs. It is incompatible with the keyword
+`ElecDipoleFunction'.  
+
+   *Default values:*
+
+   By default the Frank Condon approximation is not assumed.
+
+
+File: QuAC.info,  Node: Electronic Transition,  Next: CM System of Reference,  Prev: Frank Condon,  Up: Analysis Keywords
+
+7.4.6 Electronic Transition
+---------------------------
+
+The energy difference between the botton of the two wells in a vibronic
+transition. job1%ener-job2%ener
+
+   *General syntax:*
+
+ElecTransEnergy ENERGY  UNIT
+   
+   *Incompatibilities:*
+
+   Have meaning only for ...
+
+   *Default values:*
+
+   xaasdsad
+
+
+File: QuAC.info,  Node: CM System of Reference,  Next: Dunhan Parameters,  Prev: Electronic Transition,  Up: Analysis Keywords
+
+7.4.7 CM System of Reference
+----------------------------
+
+Calculate the differential cross section in the centre of mass (CM)
+system of reference can be done with the keyword `CenterOfMassSys'.
+
+   *General syntax:*
+
+CenterOfMassSys
+   
+   *Incompatibilities:*
+
+   Have meaning only for a `DifferentialCrossSec' analysis.
+
+   *Default values:*
+
+   By default the differential cross section is calculated in the
+laboratory system of reference.
+
+
+File: QuAC.info,  Node: Dunhan Parameters,  Next: Cross Section Unit,  Prev: CM System of Reference,  Up: Analysis Keywords
+
+7.4.8 Dunhan Parameters
+-----------------------
+
+The Dunhan parameters that will be computed in an `DunhanExpansion'
+analysis can be defined with the keywords `DunhanNumberOfParam',
+`DunhanPureVibrational', or `DunhanPureRotational'.
+
+   *General syntax:*
+
+DunhanNumberOfParam N_VIB N_ROT N_VIB_ROT
+   
+DunhanPureVibrational N_VIB
+   
+DunhanPureRotational N_ROT
+   
+   The arguments N_VIB, N_ROT and N_VIB_ROT stands for the number of
+parameters vibrational, rotational and vibrational-rotational coupling
+in the Dunhan expansion. (*Note Overview::.)
+
+   *Incompatibilities:*
+
+   Have meaning only for a `DunhanExpansion' analysis.
+
+   *Default values:*
+
+   There are no default value for the number of Dunhan parameters. One
+(and only one) of these keywords must be given.
+
+
+File: QuAC.info,  Node: Cross Section Unit,  Prev: Dunhan Parameters,  Up: Analysis Keywords
+
+7.4.9 Cross Section Unit
+------------------------
+
+The unit to print the cross section can be given with the `CrossSecUni'
+keyword. _This keyword can also be used in an `SCATT_LENGTH'
+calculation, since the corresponding zero energy cross section is
+automatically computed._
+
+   *General syntax:*
+
+CrossSecUni UNIT
+   
+   The argument UNIT is an unit of distance.
+
+   *Incompatibilities:*
+
+   Have meaning only for `PartialCrossSec', `TotalCrossSec',
+`DifferentialCrossSec' analysis and `SCATT_LENGTH' calculation.
+
+   *Default values:*
+
+   By default the cross section are printed in atomic units, a0^2 .
+
+
+File: QuAC.info,  Node: Code,  Next: Keyword Index,  Prev: Keywords,  Up: Top
+
+8 Code
+******
+
+What you need now to change the source code.
+
+
+File: QuAC.info,  Node: Keyword Index,  Next: Concept Index,  Prev: Code,  Up: Top
+
+Keyword Index
+*************
+
+ [index ]
+* Menu:
+
+* AddSteps <1>:                          Additional Steps.     (line 15)
+* AddSteps:                              Integration Step.     (line 31)
+* AnalysisType:                          Analysis Type.        (line 12)
+* Angle:                                 Angles.               (line 16)
+* AppMorse:                              Morse.                (line  9)
+* ATOMS:                                 Masses and Atoms.     (line  6)
+* CenterOfMassSys:                       CM System of Reference.
+                                                               (line 12)
+* CrossSecUni:                           Cross Section Unit.   (line 14)
+* CubSplFitr6:                           Natural Cubic Splines.
+                                                               (line 23)
+* CubSplFitr6r8:                         Natural Cubic Splines.
+                                                               (line 23)
+* CubSplFitr6r8r10:                      Natural Cubic Splines.
+                                                               (line 24)
+* CubSplr6:                              Natural Cubic Splines.
+                                                               (line 14)
+* CubSplr6r8:                            Natural Cubic Splines.
+                                                               (line 14)
+* DunhanNumberOfParam:                   Dunhan Parameters.    (line 13)
+* DunhanPureRotational:                  Dunhan Parameters.    (line 17)
+* DunhanPureVibrational:                 Dunhan Parameters.    (line 15)
+* ElecDipoleFunction <1>:                Frank Condon.         (line 20)
+* ElecDipoleFunction:                    Electric Dipole Function.
+                                                               (line 12)
+* ElecTransEnergy:                       Electronic Transition.
+                                                               (line 12)
+* Energy:                                Energy and Velocity.  (line 17)
+* ExpInterVelocity:                      Energy and Velocity.  (line 25)
+* FinalIntStep:                          Integration Step.     (line 21)
+* FORMAT:                                Format.               (line  6)
+* FPIniCond:                             Initial Condition.    (line 13)
+* FrankCondon <1>:                       Frank Condon.         (line 12)
+* FrankCondon:                           Electric Dipole Function.
+                                                               (line 19)
+* HardSphere:                            Rigid Sphere.         (line  6)
+* InterAngle:                            Angles.               (line 20)
+* InterVelocity:                         Energy and Velocity.  (line 21)
+* IntMeth:                               Integration Method.   (line 13)
+* IntStep:                               Integration Step.     (line 17)
+* Job:                                   Job Analysed.         (line 12)
+* Jobs:                                  Job Analysed.         (line 15)
+* l:                                     Angular Momentum.     (line 17)
+* LenJon:                                Lennard Jones.        (line  7)
+* LenJon-N-M:                            Lennard Jones.        (line  8)
+* LinarSpl:                              Linear Spline.        (line  6)
+* lmax:                                  Angular Momentum.     (line 21)
+* LSLenJon:                              Lennard Jones.        (line  9)
+* LSLenJon-N-M:                          Lennard Jones.        (line  9)
+* MASSES:                                Masses and Atoms.     (line  6)
+* MeshkovParam:                          Meshkov Parameters.   (line 13)
+* Morse:                                 Morse.                (line  7)
+* MurSorbie:                             Murrel Sorbie.        (line  6)
+* NatCubSpl:                             Natural Cubic Splines.
+                                                               (line 10)
+* PhaseShiftMeth:                        Phase Shift Method.   (line 12)
+* PotName:                               Potential Name.       (line 13)
+* Print:                                 Print.                (line 14)
+* PrintPhaseShift:                       Print Phase Shifts.   (line 12)
+* PrintVibIterations:                    Print Vibration Iterations.
+                                                               (line 12)
+* PrintVibWFIterations:                  Print WF Vibration Iterations.
+                                                               (line 14)
+* RED_MASS:                              Masses and Atoms.     (line  6)
+* RichardsonExtr:                        Richardson Extrapolation.
+                                                               (line 12)
+* Rmax:                                  R min and R max.      (line 18)
+* Rmin:                                  R min and R max.      (line 14)
+* SaveAtEach:                            Save Steps at each.   (line 12)
+* SaveGlobalPot:                         Save Global Potential.
+                                                               (line 13)
+* SaveSteps:                             Save Steps.           (line 13)
+* ScattLenMeth:                          Scattering Length Method.
+                                                               (line 12)
+* SoftSphere:                            Soft Sphere.          (line  6)
+* Square:                                Square.               (line  6)
+* Velocity:                              Energy and Velocity.  (line 17)
+* Vib1stOrderMaxIterx:                   Maximum Iteration.    (line 15)
+* VibFixedMesh:                          Vibrational Fixed Mesh.
+                                                               (line 15)
+* VibLevel:                              Vibrational Levels.   (line 17)
+* VibLevelMax:                           Vibrational Levels.   (line 21)
+* VibRiniShift:                          Vibrational R ini shift.
+                                                               (line 13)
+* VibThreshold:                          Vibrational Threshold.
+                                                               (line 12)
+* WFScale:                               Normalisation.        (line 13)
+
+
+File: QuAC.info,  Node: Concept Index,  Prev: Keyword Index,  Up: Top
+
+Concept Index
+*************
+
+ [index ]
+* Menu:
+
+* atoms:                                 Masses and Atoms.     (line 11)
+* format:                                Format.               (line  6)
+* fortran format:                        Format.               (line  6)
+* mass:                                  Masses and Atoms.     (line 11)
+* phase shift:                           Phase Shifts.         (line  6)
+* reduced mass:                          Masses and Atoms.     (line 11)
+* scattering length:                     Scattering Length.    (line  6)
+
+
+
+Tag Table:
+Node: Top769
+Node: Overview2252
+Node: Compiling and running2433
+Node: Input2629
+Node: Potentials4279
+Node: Rigid Sphere5694
+Node: Soft Sphere6183
+Node: Square6650
+Node: Lennard Jones7063
+Node: Morse8299
+Node: Murrel Sorbie8897
+Node: Linear Spline9292
+Node: Natural Cubic Splines9658
+Node: Direct Potential11565
+Node: Jobs13634
+Node: Phase Shifts13941
+Node: Scattering Length14727
+Node: Bound States15285
+Node: Results Analysis15968
+Node: Output16577
+Node: Keywords16993
+Node: Masses and Atoms17821
+Node: Format18908
+Node: Calculation Keywords19948
+Node: Angular Momentum20717
+Node: Energy and Velocity21644
+Node: Integration Method22960
+Node: Integration Step23869
+Node: Print25074
+Node: Normalisation25765
+Node: Potential Name26395
+Node: Initial Condition27166
+Node: Save Steps27956
+Node: Phase Shift Method28452
+Node: R min and R max29036
+Node: Additional Steps29955
+Node: Save Steps at each30736
+Node: Print Phase Shifts31368
+Node: Save Global Potential31824
+Node: Scattering Length Method32560
+Node: Meshkov Parameters33134
+Node: Richardson Extrapolation33908
+Node: Vibrational Levels34461
+Node: Vibrational Fixed Mesh35294
+Node: Print Vibration Iterations36038
+Node: Print WF Vibration Iterations36586
+Node: Maximum Iteration37286
+Node: Vibrational Threshold38180
+Node: Vibrational R ini shift38787
+Node: Analysis Keywords39501
+Node: Analysis Type39855
+Node: Angles40807
+Node: Job Analysed41562
+Node: Electric Dipole Function42565
+Node: Frank Condon43256
+Node: Electronic Transition43983
+Node: CM System of Reference44415
+Node: Dunhan Parameters44990
+Node: Cross Section Unit45892
+Node: Code46595
+Node: Keyword Index46737
+Node: Concept Index53092
+
+End Tag Table

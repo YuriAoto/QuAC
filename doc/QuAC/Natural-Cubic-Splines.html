@@ -1,0 +1,112 @@
+<html lang="en">
+<head>
+<title>Natural Cubic Splines - QuAC Manual 1.0</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="QuAC Manual 1.0">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Potentials.html#Potentials" title="Potentials">
+<link rel="prev" href="Linear-Spline.html#Linear-Spline" title="Linear Spline">
+<link rel="next" href="Direct-Potential.html#Direct-Potential" title="Direct Potential">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+QuAC is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+QuAC - Quantum Atomic Collisions
+Copyright (C) 2009, 2010, 2011, 2012  Yuri Aoto-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Natural-Cubic-Splines"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Direct-Potential.html#Direct-Potential">Direct Potential</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Linear-Spline.html#Linear-Spline">Linear Spline</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Potentials.html#Potentials">Potentials</a>
+<hr>
+</div>
+
+<h3 class="section">4.8 Natural Cubic Splines</h3>
+
+<p>Cubic splines are piecewise cubic functions, with continuous first and second derivatives in the range between the first and the last points, which interpolates the given points. QuAC uses the natural cubic splines, whose second derivative in the first and last points are zero. For the <code>NatCubSpl</code>
+<a name="index-NatCubSpl-12"></a>type of potentials the energy is set constant and equal to the energy of the last point for distances larger than the last given energy.
+
+   <p>The <code>CubSplr6</code>
+<a name="index-CubSplr6-13"></a>and <code>CubSplr6r8</code>
+<a name="index-CubSplr6r8-14"></a>are calculated as
+<!-- TeX version -->
+<!-- TeX version -->
+C_6/r^6 and as C_6/r^6 + C_8/r^8,
+respectively, for distances larger than the last distance given, and the coefficients are calculated in order to join this tail smoothly with the cubic spline. For the second case, where one more condition is required, the spline is calculated without the last point, whose energy is treated as being the asymptotic limit of this long range behaviour.
+
+   <p>The coefficients of the long range tail of the potential can be supplied using the potential types <code>CubSplFitr6</code>,
+<a name="index-CubSplFitr6-15"></a><code>CubSplFitr6r8</code>,
+<a name="index-CubSplFitr6r8-16"></a>and <code>CubSplFitr6r8r10</code>. 
+<a name="index-CubSplFitr6r8r10-17"></a>For these potentials the potential after the last distance is calculated as
+<!-- TeX version -->
+<!-- no TeX version -->
+C_6/r^6, C_6/r^6 + C_8/r^8, and C_6/r^6 + C_8/r^8 + C_10/r^10,
+respectively.
+
+   <p><strong>General syntax:</strong>
+
+<pre class="example"><var>r_1</var> <var>V_1</var>
+<var>r_2</var> <var>V_2</var>
+...
+<var>r_n</var> <var>V_n</var>
+</pre>
+   <p>or
+
+<pre class="example"><var>r_1</var> <var>V_1</var>
+<var>r_2</var> <var>V_2</var>
+...
+<var>r_n</var> <var>V_n</var>
+<var>r_inf</var> <var>V_inf</var>
+</pre>
+   <p>or
+
+<pre class="example"><var>coef_r6</var>
+<var>r_1</var> <var>V_1</var>
+<var>r_2</var> <var>V_2</var>
+...
+<var>r_n</var> <var>V_n</var>
+</pre>
+   <p>or
+
+<pre class="example"><var>coef_r6</var> <var>coef_r8</var>
+<var>r_1</var> <var>V_1</var>
+<var>r_2</var> <var>V_2</var>
+...
+<var>r_n</var> <var>V_n</var>
+</pre>
+   <p>or
+
+<pre class="example"><var>coef_r6</var> <var>coef_r8</var> <var>coef_r10</var>
+<var>r_1</var> <var>V_1</var>
+<var>r_2</var> <var>V_2</var>
+...
+<var>r_n</var> <var>V_n</var>
+</pre>
+   <p><var>r_i</var> and <var>V_i</var>, <var>i</var>=1,2,...,n,inf are distance/energy the points. The first case is for <code>NatCubSpl</code> and <code>CubSplr6</code>, the second for <code>CubSplr6r8</code> and the last three for <code>CubSplFitr6r</code>, <code>CubSplFitr6r8</code>, and <code>CubSplFitr6r8r10</code>, where <var>coef_r6</var> <var>coef_r8</var> <var>coef_r10</var> are the coefficients C_6, C_8, and
+<!-- TeX version -->
+<!-- no TeX version -->
+C_10.
+
+<!-- ====== new node/chap;sec;sub -->
+   </body></html>
+

@@ -1,0 +1,68 @@
+<html lang="en">
+<head>
+<title>R min and R max - QuAC Manual 1.0</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="QuAC Manual 1.0">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Calculation-Keywords.html#Calculation-Keywords" title="Calculation Keywords">
+<link rel="prev" href="Phase-Shift-Method.html#Phase-Shift-Method" title="Phase Shift Method">
+<link rel="next" href="Additional-Steps.html#Additional-Steps" title="Additional Steps">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+QuAC is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+QuAC - Quantum Atomic Collisions
+Copyright (C) 2009, 2010, 2011, 2012  Yuri Aoto-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="R-min-and-R-max"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Additional-Steps.html#Additional-Steps">Additional Steps</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Phase-Shift-Method.html#Phase-Shift-Method">Phase Shift Method</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Calculation-Keywords.html#Calculation-Keywords">Calculation Keywords</a>
+<hr>
+</div>
+
+<h4 class="subsection">7.3.11 R min and R max</h4>
+
+<p>The initial and final points of the numerical integration are changed using the <code>Rmin</code> and <code>Rmax</code> keywords, respectively. Like the integration step, they are given in the unit used in the potential definition of the current job.
+
+   <p><strong>General syntax:</strong>
+
+<pre class="example">Rmin <var>r_min</var>
+</pre>
+   <p><a name="index-Rmin-45"></a>
+or
+
+<pre class="example">Rmax <var>r_max</var>
+</pre>
+   <p><a name="index-Rmax-46"></a>
+<strong>Incompatibilities:</strong>
+
+   <p>For a <code>BOUND_STATES</code> calculation they can be passed only in a fixed mesh calculation. (See <a href="Bound-States.html#Bound-States">Bound States</a>.). The value of <var>r_min</var> can not be lower than the lower bound of the corresponding potential. (See <a href="Potentials.html#Potentials">Potentials</a>.)
+
+   <p><strong>Default values:</strong>
+
+   <p>The default value of <var>r_min</var> and <var>r_max</var> are the lower and the upper bound of the potential, respectively. If the lower bound is zero it will depend of the potential.(See <a href="Potentials.html#Potentials">Potentials</a>.)
+
+<!-- ====== new node/chap;sec;sub -->
+   </body></html>
+

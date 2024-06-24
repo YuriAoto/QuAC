@@ -1,0 +1,79 @@
+<html lang="en">
+<head>
+<title>Energy and Velocity - QuAC Manual 1.0</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="QuAC Manual 1.0">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Calculation-Keywords.html#Calculation-Keywords" title="Calculation Keywords">
+<link rel="prev" href="Angular-Momentum.html#Angular-Momentum" title="Angular Momentum">
+<link rel="next" href="Integration-Method.html#Integration-Method" title="Integration Method">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+QuAC is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+QuAC - Quantum Atomic Collisions
+Copyright (C) 2009, 2010, 2011, 2012  Yuri Aoto-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Energy-and-Velocity"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Integration-Method.html#Integration-Method">Integration Method</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Angular-Momentum.html#Angular-Momentum">Angular Momentum</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Calculation-Keywords.html#Calculation-Keywords">Calculation Keywords</a>
+<hr>
+</div>
+
+<h4 class="subsection">7.3.2 Energy and Velocity</h4>
+
+<p>The energy for the calculation can be given individually, in a range or in an exponential range. It can be given as energy or as velocity and the <var>unit</var> must be consistent with this choice.
+
+   <p><strong>General syntax:</strong>
+
+<pre class="example">Energy <var>unit</var>
+<var>energy_1</var>
+<var>energy_2</var>
+...
+<var>energy_n</var>
+</pre>
+   <p><a name="index-Energy-31"></a><a name="index-Velocity-32"></a>
+or
+
+<pre class="example">InterEnergy <var>e_min</var> <var>e_max</var> <var>delta_e</var> <var>unit</var>
+</pre>
+   <p><a name="index-InterVelocity-33"></a>
+or
+
+<pre class="example">ExpInterEnergy <var>exp_min</var> <var>exp_max</var> <var>delta_exp</var> <var>unit</var>
+</pre>
+   <p><a name="index-ExpInterVelocity-34"></a>
+In the first case the values of <var>energy_1</var>, <var>energy_2</var>, and <var>energy_n</var> are the energies required. In the second, the values of energy are between <var>e_min</var> (including) and <var>e_max</var>, increasing by <var>delta_e</var>. In the later case the range is given in the exponent (base 10). Analogously, replacing &lsquo;<samp><span class="samp">Energy</span></samp>&rsquo; by &lsquo;<samp><span class="samp">Velocity</span></samp>&rsquo;, the values can be given as the collision velocity.
+
+   <p><strong>Incompatibilities:</strong>
+
+   <p>It is not allowed pass velocity For a <code>BOUND_STATES</code> calculation.
+
+   <p><strong>Default values:</strong>
+
+   <p>For <code>PHASE_SHIFTS</code> there are no default values and the energy is mandatory. For <code>SCATT_LENGTH</code> the integration is carried at zero energy by default. The behaviour of a <code>BOUND_STATES</code> calculation with no energy given explicitly depends on the vibrational levels required. (See <a href="Bound-States.html#Bound-States">Bound States</a>.)
+
+<!-- ====== new node/chap;sec;sub -->
+   </body></html>
+

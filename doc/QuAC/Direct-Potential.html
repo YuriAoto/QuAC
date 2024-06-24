@@ -1,0 +1,62 @@
+<html lang="en">
+<head>
+<title>Direct Potential - QuAC Manual 1.0</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="QuAC Manual 1.0">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Potentials.html#Potentials" title="Potentials">
+<link rel="prev" href="Natural-Cubic-Splines.html#Natural-Cubic-Splines" title="Natural Cubic Splines">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+QuAC is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+QuAC - Quantum Atomic Collisions
+Copyright (C) 2009, 2010, 2011, 2012  Yuri Aoto-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Direct-Potential"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Natural-Cubic-Splines.html#Natural-Cubic-Splines">Natural Cubic Splines</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Potentials.html#Potentials">Potentials</a>
+<hr>
+</div>
+
+<h3 class="section">4.9 Direct Potential</h3>
+
+<p>Calculations can be carried using a direct potential, where the energy is get directly from the output of an electronic structure calculation.
+
+   <p><strong>General syntax:</strong>
+
+<pre class="example"><var>elec_struc_command</var>
+<var>get_ener_command</var>
+<var>rm_command</var>
+<var>keyword</var> <var>format_ener</var> <var>format_dist</var>
+<var>r_inf</var> <var>zero_e_ret</var> <var>lower_bound</var> <var>upper_bound</var> <var>eq_dist</var> <var>force_const</var>
+<var>elec_struc_input</var>
+...
+</pre>
+   <p>Here, <var>elec_struc_command</var> is the command to run the electronic structure calculation, <var>get_ener_command</var> is a command to print, in the standard output, the energy (that will be read by QuAC using the format <var>format_ener</var>), and <var>rm_command</var> is a command to delete the files from the electronic structure calculation. <var>keyword</var> is a word in the input file of the electronic structure that will be replaced by the distance to be calculated, using the fortran format <var>format_dist</var>. In the following line some properties of the potential that are automatically computed by QuAC for other potentials must be given, since the electronic structure programs usually have efficient procedures to calculate them. <var>r_inf</var> is the distance at which the particles can be considered isolated (this distance will be used to calculate the dissociation energy), <var>zero_e_ret</var> is the zero energy turning point, <var>lower_bound</var> and <var>upper_bound</var> are distances to be considered lower and upper bound of the potential, that is, the potential is assumed to be infinity below <var>lower_bound</var> and almost constant after <var>upper_bound</var> (but is also calculated directly after this point). <var>eq_dist</var> and <var>force_const</var> are the equilibrium distance and the force constant and should be negative if the potential is repulsive.
+
+   <p>The rest of the definition until a the end of the potential definition (the end of the input file or a line starting with &lsquo;<samp><span class="samp">POTENTIAL</span></samp>&rsquo; or &lsquo;<samp><span class="samp">DIP_MOM</span></samp>&rsquo;) is the input file to be used in the electronic structure calculation. It depends, of course, of the program and every instance of the keyword <var>keyword</var> in it will be replaced by the distance.
+
+<!-- ====== new node/chap;sec;sub -->
+   </body></html>
+

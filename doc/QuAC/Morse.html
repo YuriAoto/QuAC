@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+<title>Morse - QuAC Manual 1.0</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="QuAC Manual 1.0">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Potentials.html#Potentials" title="Potentials">
+<link rel="prev" href="Lennard-Jones.html#Lennard-Jones" title="Lennard Jones">
+<link rel="next" href="Murrel-Sorbie.html#Murrel-Sorbie" title="Murrel Sorbie">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+QuAC is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+QuAC - Quantum Atomic Collisions
+Copyright (C) 2009, 2010, 2011, 2012  Yuri Aoto-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Morse"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Murrel-Sorbie.html#Murrel-Sorbie">Murrel Sorbie</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Lennard-Jones.html#Lennard-Jones">Lennard Jones</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Potentials.html#Potentials">Potentials</a>
+<hr>
+</div>
+
+<h3 class="section">4.5 Morse</h3>
+
+<p>The parameters of a Morse potential can be given explicitly, by the type <code>Morse</code>,
+<a name="index-Morse-8"></a>or as the ones which gives the same equilibrium distance, dissociation energy and force constant of the natural cubic splines over a given set of points, by the name <code>AppMorse</code>. 
+<a name="index-AppMorse-9"></a>
+<strong>Expression:</strong>
+
+<!-- TeX version -->
+<!-- no TeX version -->
+   <p>V(r) = D[(1 - exp(-B(r - r_0))) - 1]
+
+   <p><strong>General syntax:</strong>
+
+<pre class="example"><var>radius</var> <var>epsilon</var> <var>beta</var>
+</pre>
+   <p>or
+
+<pre class="example"><var>r_1</var> <var>V_1</var>
+<var>r_2</var> <var>V_2</var>
+...
+<var>r_n</var> <var>V_n</var>
+</pre>
+   <p><var>radius</var> = r_0,
+<!-- TeX version -->
+<!-- no TeX version -->
+<var>epsilon</var> = D, <var>beta</var> = B. 
+The second case is for &lsquo;<samp><span class="samp">AppMorse</span></samp>&rsquo; type.
+
+<!-- ====== new node/chap;sec;sub -->
+   </body></html>
+

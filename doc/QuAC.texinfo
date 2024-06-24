@@ -1,0 +1,1778 @@
+\input texinfo @c -*-texinfo-*-
+@c %**start of header
+@setfilename QuAC.info
+@settitle QuAC Manual 1.0
+@exampleindent none
+@c %**end of header
+
+@c ---> Part 2: Summary Description and Copyright
+@copying
+QuAC is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. 
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+QuAC - Quantum Atomic Collisions
+Copyright @copyright{} 2009, 2010, 2011, 2012  Yuri Aoto
+@end copying
+
+@c ---> Part 3: Titlepage, Contents, Copyright
+@titlepage
+@title QuAC Manual
+@subtitle QuAC - Quantum Atomic Collision
+@author Yuri Alexandre Aoto
+
+@c The following two commands start the copying page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+@end titlepage
+
+@c Output the table of content at the begnning.
+@contents
+
+@c ---> Part 4: 'Top' Node and Master Menu
+@ifnottex
+@node Top, Overview, (dir), (dir)
+@top QuAC Manual
+
+This manual is for QuAC, version 1.0.
+@end ifnottex
+
+@menu
+* Overview::                    
+* Compiling and running::       
+* Input::                       
+* Potentials::                  
+* Jobs::                        
+* Output::                      
+* Keywords::                    
+* Code::                        
+* Keyword Index::               
+* Concept Index::               
+
+@detailmenu
+ --- The Detailed Node Listing ---
+
+Potentials
+
+* Rigid Sphere::                
+* Soft Sphere::                 
+* Square::                      
+* Lennard Jones::               
+* Morse::                       
+* Murrel Sorbie::               
+* Linear Spline::               
+* Natural Cubic Splines::       
+* Direct Potential::            
+
+Jobs
+
+* Phase Shifts::                
+* Scattering Length::           
+* Bound States::                
+* Results Analysis::            
+
+Keywords
+
+* Masses and Atoms::            
+* Format ::                     
+* Calculation Keywords::        
+* Analysis Keywords::           
+
+Calculation Keywords
+
+* Angular Momentum::            
+* Energy and Velocity::         
+* Integration Method::          
+* Integration Step::            
+* Print::                       
+* Normalisation::               
+* Potential Name::              
+* Initial Condition::           
+* Save Steps::                  
+* Phase Shift Method::          
+* R min and R max::             
+* Additional Steps::            
+* Save Steps at each::          
+* Print Phase Shifts::          
+* Save Global Potential::       
+* Scattering Length Method::    
+* Meshkov Parameters::          
+* Richardson Extrapolation::    
+* Vibrational Levels::          
+* Vibrational Fixed Mesh::      
+* Print Vibration Iterations::  
+* Print WF Vibration Iterations::  
+* Maximum Iteration::           
+* Vibrational Threshold::       
+* Vibrational R ini shift::     
+
+Analysis Keywords
+
+* Analysis Type::               
+* Angles::                      
+* Job Analysed::                
+* Electric Dipole Function::    
+* Frank Condon::                
+* Electronic Transition::       
+* CM System of Reference::      
+* Dunhan Parameters::           
+* Cross Section Unit::          
+
+@end detailmenu
+@end menu
+
+@c ---> Part 5: The Body of the Document
+@c ====== new node/chap;sec;sub
+@node Overview, Compiling and running, Top, Top
+@chapter Overview
+
+Overview of QuAC.
+
+A little bit of theory.
+
+What QuAC does and 
+
+@c ====== new node/chap;sec;sub
+@node Compiling and running, Input, Overview, Top
+@chapter Compiling and running
+
+Compiling and running explanation.
+
+Command options.
+
+@c ====== new node/chap;sec;sub
+@node Input, Potentials, Compiling and running, Top
+@chapter Input
+
+The input of QuAC is divided in two parts. The first contains the jobs informations and the second the potentials definitions. The first line of the input file is an job name. After, several jobs can be passed, which have the general syntax:
+
+@example
+@var{job_type} [@var{job_name}]
+@var{job_keywords}
+@dots{}
+@end example
+
+@var{job_type} is the type of the job (@pxref{Jobs}) and the optional argument, @var{job_name}, is a name for this job. it is not completely optional, since if an posterior analysis of this job will be carried it is required. The number of jobs handled by QuAC is arbitrary and the keywords that follow this first line are concerned only to this job, with the exception of particles (@pxref{Masses and Atoms}) and formats (@pxref{Format}) definitions. Theses special keywords apply to the subsequent job, until another keyword override it.
+
+There are two kinds of jobs in QuAC: jobs that does some calculation and jobs that analyses this calculations. QuAC calculates just what it is asked for and do not try to be smart and analyse the results if it is not explicitly required.
+
+The potentials definitions must be placed after all the jobs. A keyword (@pxref{Potential Name}) links the job and the potential that it will use.
+
+Some keywords in the job and potential definitions can be given in any unit recognised by QuAC. Run @command{QuAC --units} to see the available units and conversion factors. These informations is stored in an ASCII file (the command @command{QuAC --units} provides it) and it is possible add new units or change the conversion factor changing it.
+
+@c ====== new node/chap;sec;sub
+@node Potentials, Jobs, Input, Top
+@chapter Potentials
+
+QuAC handles different types of potentials/dipole moments functions and they must be given after all of the jobs. Multiples potentials can be given and the general syntax is:
+
+@example
+POTENTIAL @var{name}
+[Print @var{Lin/Log} @var{r_min} @var{r_max} @var{delta_r} @var{dist_uni} @var{ener_uni}]
+@var{type} @var{lambda} @var{dist_uni} [@var{ener_uni}]
+@dots{}
+@samp{parameters}
+@dots{}
+@end example
+
+or
+
+@example
+DIP_MOM @var{name}
+[Print @var{Lin/Log} @var{r_min} @var{r_max} @var{delta_r} @var{dist_uni} @var{ener_uni}]
+@var{type} @var{lambda} @var{dist_uni} [@var{ener_uni}]
+@dots{}
+@samp{parameters}
+@dots{}
+@end example
+
+The argument @var{name} is a name for the given potential, the optional keywords and variables in the second line ask for print the potential in the @samp{.log} file, from @var{r_min} to @var{r_max} increasing by @var{delta_r}. @var{Lin/Log} should be @samp{Lin} or @samp{Log} and means linear or logarithm r scale and @var{dist_uni} and @var{ener_uni} are the units the potential should be printed. @var{type} is the type of potential and @var{lambda} is the quantum number for the z-component of electronic angular momentum. @var{dist_uni} and @var{ener_uni} are the units the potential parameters will be given and do not need to be the same of the ones used in @samp{Print} line.
+
+Each type of potential have their specific syntax, described below, and must be placed just after these arguments.
+
+@menu
+* Rigid Sphere::                
+* Soft Sphere::                 
+* Square::                      
+* Lennard Jones::               
+* Morse::                       
+* Murrel Sorbie::               
+* Linear Spline::               
+* Natural Cubic Splines::       
+* Direct Potential::            
+@end menu
+
+@c ====== new node/chap;sec;sub
+@node Rigid Sphere, Soft Sphere, Potentials, Potentials
+@section Rigid Sphere
+
+The rigid sphere potential, @code{HardSphere},
+@findex HardSphere
+is zero valued after a given distance, the radius, and the wave function must completely vanish at distances below the radius. Only for this type of potential the unit of energy is not required.
+
+@strong{Expression:}
+
+@c TeX version
+@tex
+@multitable @columnfractions .2 .6
+@item @math{u_l(r) = 0.0}
+@tab if @math{r \le r_0}
+@item @math{V(r) = 0.0}
+@tab if @math{r > r_0}
+@end multitable
+@end tex
+@c no TeX version
+@ifnottex
+@multitable @columnfractions .2 .6
+@item @math{u_l(r) = 0.0}
+@tab if @math{r <= r_0}
+@item @math{V(r)   = 0.0}
+@tab if @math{r >  r_0}
+@end multitable
+@end ifnottex
+
+@strong{General syntax:}
+
+@example
+@var{radius}
+@end example
+
+@var{radius} = @math{r_0}
+
+@c @var{radius} = $$r_0$$
+
+@c ====== new node/chap;sec;sub
+@node Soft Sphere, Square, Rigid Sphere, Potentials
+@section Soft Sphere
+
+@code{SoftSphere}
+@findex SoftSphere
+define a soft sphere, which is also zero valued after a given distance, the radius, but below it has a repulsive exponential behaviour.
+
+@strong{Expression:}
+
+@c TeX version
+@tex
+@multitable @columnfractions .3 .6
+@item @math{V(r) = \varepsilon \left\{ \left( r_0 \over r \right)^\alpha - 1 \right\}}
+@tab if @math{r \le r_0}
+@item @math{V(r) = 0.0}
+@tab if @math{r > r_0}
+@end multitable
+@end tex
+@c not TeX version
+@ifnottex
+@multitable @columnfractions .4 .6
+@item @math{V(r) = D((r_0/r)^a - 1)}
+@tab if @math{r <= r_0}
+@item @math{V(r) = 0.0}
+@tab if @math{r > r_0}
+@end multitable
+@end ifnottex
+
+@strong{General syntax:}
+
+@example
+@var{radius} @var{epsilon} @var{alpha}
+@end example
+
+@c TeX version
+@tex
+@var{radius} = @math{r_0}, @var{epsilon} = @math{\varepsilon}, and @var{alpha} = @math{\alpha}.
+@end tex
+@c no TeX version
+@ifnottex
+@var{radius} = @math{r_0}, @var{epsilon} = @math{D}, and @var{alpha} = @math{a}.
+@end ifnottex
+
+@c ====== new node/chap;sec;sub
+@node Square, Lennard Jones, Soft Sphere, Potentials
+@section Square
+
+A square potential, keyword @code{Square},
+@findex Square
+is given as an step like function, being zero if the distance is larger then a given radius and constant otherwise.
+
+@strong{Expression:}
+
+@c TeX version
+@tex
+@multitable @columnfractions .2 .6
+@item @math{V(r) = \varepsilon}
+@tab if @math{r \le r_0}
+@item @math{V(r) = 0.0}
+@tab if @math{r > r_0}
+@end multitable
+@end tex
+@c no TeX version
+@ifnottex
+@multitable @columnfractions .2 .6
+@item @math{V(r) = D}
+@tab if @math{r <= r_0}
+@item @math{V(r) = 0.0}
+@tab if @math{r >  r_0}
+@end multitable
+@end ifnottex
+
+@strong{General syntax:}
+
+@example
+@var{radius} @var{epsilon}
+@end example
+
+@c TeX version
+@tex
+@var{radius} = @math{r_0}, @var{epsilon} = @math{\varepsilon}.
+@end tex
+@c no Tex version
+@ifnottex
+@var{radius} = @math{r_0}, @var{epsilon} = @math{D}.
+@end ifnottex
+
+@node Lennard Jones, Morse, Square, Potentials
+@section Lennard Jones
+
+Lennard-Jones potentials can be given in multiples ways. The parameters can be given by @code{LenJon},
+@findex LenJon
+which refers to the common (12,6) potential (first expression), and by @code{LenJon-@var{N}-@var{M}},
+@findex LenJon-@var{N}-@var{M}
+which refers to a (@var{N}+@var{M},@var{N}) type (second expression). The potential names @code{LSLenJon}
+@findex LSLenJon
+and @code{LSLenJon-@var{N}-@var{M}}
+@findex LSLenJon-@var{N}-@var{M}
+corresponds to a Lennard-Jones ((12,6) and (@var{N}+@var{M},@var{N}), respectively) potentials whose parameters is obtained by least square over the given points.
+
+@strong{Expression:}
+
+@c TeX version
+@tex
+@math{V(r) = \varepsilon \left\{ \left(r_0 \over r\right)^{12} - 2\left(r_0 \over r\right)^{6} \right\}}
+@end tex
+@c no TeX version
+@ifnottex
+@math{V(r) = D[(r_0/r)^12 - 2(r_0/r)^6]}
+@end ifnottex
+
+@c Tex version
+@tex
+@math{V(r) = \epsilon \left\{ \left(\bar{r} \over r\right)^{N+M} - \left(\bar{r} \over r\right)^{N} \right\}}
+@end tex
+@c no Tex version
+@ifnottex
+@math{V(r) = d[(R/r)^(N+M) - (R/r)^N]}
+@end ifnottex
+
+@strong{General syntax:}
+
+@example
+@var{radius} @var{epsilon}
+@end example
+
+or
+
+@example
+@var{r_1} @var{V_1}
+@var{r_2} @var{V_2}
+@dots{}
+@var{r_n} @var{V_n}
+@end example
+
+In the first case, @var{radius} = @math{r_0}, the equilibrium distance, and @var{epsilon} =
+@c TeX version
+@tex
+@math{\varepsilon},
+@end tex
+@c no TeX version
+@ifnottex
+@math{D},
+@end ifnottex
+the dissociation energy, for @samp{LenJon} and @samp{LenJon-N-M} potentials. Note that the parameters given are the equilibrium distance and the dissociation energy in both cases. The expression above for the general @samp{LenJon-@var{N}-@var{M}} Lennard-Jones potential are in terms of the parameters
+@c TeX version
+@tex
+@math{\epsilon} and @math{\bar{r}},
+@end tex
+@c no TeX version
+@ifnottex
+@math{d} and @math{R},
+@end ifnottex
+related to @math{r_0} and
+@c TeX version
+@tex
+@math{\varepsilon}
+@end tex
+@c no TeX version
+@ifnottex
+@math{D}
+@end ifnottex
+by:
+
+@c TeX version
+@tex
+@math{\bar{r} = r_0\left( N \over N+M \right)^{1 \over M}}
+@end tex
+@c no TeX version
+@ifnottex
+@math{R = r_0[N/(N+M)]^(1/M)}
+@end ifnottex
+
+@c TeX version
+@tex
+@math{\epsilon = \varepsilon \left( N+M \over M \right) \left( N+M \over N \right)^{N \over M}}
+@end tex
+@c no TeX version
+@ifnottex
+@math{d = D[(N+M)/M][(N+M)/N]^(N/M)}
+@end ifnottex
+
+For a @samp{LSLenJon} the points are given as in the second case.
+
+@c ====== new node/chap;sec;sub
+@node Morse, Murrel Sorbie, Lennard Jones, Potentials
+@section Morse
+
+The parameters of a Morse potential can be given explicitly, by the type @code{Morse},
+@findex Morse
+or as the ones which gives the same equilibrium distance, dissociation energy and force constant of the natural cubic splines over a given set of points, by the name @code{AppMorse}.
+@findex AppMorse
+
+@strong{Expression:} 
+
+@c TeX version
+@tex
+@math{V(r) = \varepsilon \left\{ \left( 1 - e^{-\beta\left( r - r_0\right)} \right) - 1 \right\}}
+@end tex
+@c no TeX version
+@ifnottex
+@math{V(r) = D[(1 - exp(-B(r - r_0))) - 1]}
+@end ifnottex
+
+@strong{General syntax:}
+
+@example
+@var{radius} @var{epsilon} @var{beta}
+@end example
+
+or
+
+@example
+@var{r_1} @var{V_1}
+@var{r_2} @var{V_2}
+@dots{}
+@var{r_n} @var{V_n}
+@end example
+
+@var{radius} = @math{r_0},
+@c TeX version
+@tex
+@var{epsilon} = @math{\varepsilon}, @var{beta} = @math{\beta}.
+@end tex
+@c no TeX version
+@ifnottex
+@var{epsilon} = @math{D}, @var{beta} = @math{B}.
+@end ifnottex
+The second case is for @samp{AppMorse} type.
+
+@c ====== new node/chap;sec;sub
+@node Murrel Sorbie, Linear Spline, Morse, Potentials
+@section Murrel Sorbie
+
+A Murrel Sorbie type of potential is defined by the keyword @code{MurSorbie}.
+@findex MurSorbie
+
+@strong{Expression:} 
+
+@c TeX version
+@tex
+@math{V(r) = \varepsilon \left\{ 1 + \sum_{i=1}^{n} a_i\left( r-r_0 \right)^i  \right\}e^{-a_1\left( r- r_0 \right)}}
+@end tex
+@c no TeX version
+@ifnottex
+@math{V(r) = D[1 + sum[_(i=1)^n](a_i(r-r_0)^i)]exp[-a_1(r-r_0)]}
+@end ifnottex
+
+@strong{General syntax:}
+
+@example
+@var{radius} @var{epsilon}
+@var{a_1}
+@var{a_2}
+@dots{}
+@var{a_n}
+@end example
+@var{radius} = @math{r_0}, @var{epsilon} = 
+@c TeX version
+@tex
+@math{\varepsilon},
+@end tex
+@c no TeX version
+@ifnottex
+@math{D},
+@end ifnottex
+@var{a_i} = @math{a_i}, @var{i}=1,2,...,n.
+
+@c ====== new node/chap;sec;sub
+@node Linear Spline, Natural Cubic Splines, Murrel Sorbie, Potentials
+@section Linear Spline
+
+@code{LinearSpl}
+@findex LinarSpl
+asks for a potential as a linear spline over the points given. The energy after the last point is set constant and equal to the energy of this last point.
+
+@strong{General syntax:}
+
+@example
+@var{r_1} @var{V_1}
+@var{r_2} @var{V_2}
+@dots{}
+@var{r_n} @var{V_n}
+@end example
+
+@c ====== new node/chap;sec;sub
+@node Natural Cubic Splines, Direct Potential, Linear Spline, Potentials
+@section Natural Cubic Splines
+
+Cubic splines are piecewise cubic functions, with continuous first and second derivatives in the range between the first and the last points, which interpolates the given points. QuAC uses the natural cubic splines, whose second derivative in the first and last points are zero. For the @code{NatCubSpl}
+@findex NatCubSpl
+type of potentials the energy is set constant and equal to the energy of the last point for distances larger than the last given energy.
+
+The @code{CubSplr6}
+@findex CubSplr6
+and @code{CubSplr6r8}
+@findex CubSplr6r8
+are calculated as
+@c TeX version
+@tex
+@math{C_6 \over r^6} and as @math{{C_6 \over r^6} + {C_8 \over r^8}}, 
+@end tex
+@c TeX version
+@ifnottex
+@math{C_6/r^6} and as @math{C_6/r^6 + C_8/r^8},
+@end ifnottex
+respectively, for distances larger than the last distance given, and the coefficients are calculated in order to join this tail smoothly with the cubic spline. For the second case, where one more condition is required, the spline is calculated without the last point, whose energy is treated as being the asymptotic limit of this long range behaviour.
+
+The coefficients of the long range tail of the potential can be supplied using the potential types @code{CubSplFitr6},
+@findex CubSplFitr6
+@code{CubSplFitr6r8},
+@findex CubSplFitr6r8
+and @code{CubSplFitr6r8r10}.
+@findex CubSplFitr6r8r10
+For these potentials the potential after the last distance is calculated as
+@c TeX version
+@tex
+@math{C_6 \over r^6}, @math{{C_6 \over r^6} + {C_8 \over r^8}}, and @math{{C_6 \over r^6} + {C_8 \over r^8} + {C_{10} \over r^{10}}},
+@end tex
+@c no TeX version
+@ifnottex
+@math{C_6/r^6}, @math{C_6/r^6 + C_8/r^8}, and @math{C_6/r^6 + C_8/r^8 + C_10/r^10},
+@end ifnottex
+respectively.
+
+@strong{General syntax:}
+
+@example
+@var{r_1} @var{V_1}
+@var{r_2} @var{V_2}
+@dots{}
+@var{r_n} @var{V_n}
+@end example
+
+or
+
+@example
+@var{r_1} @var{V_1}
+@var{r_2} @var{V_2}
+@dots{}
+@var{r_n} @var{V_n}
+@var{r_inf} @var{V_inf}
+@end example
+
+or
+
+@example
+@var{coef_r6}
+@var{r_1} @var{V_1}
+@var{r_2} @var{V_2}
+@dots{}
+@var{r_n} @var{V_n}
+@end example
+
+or
+
+@example
+@var{coef_r6} @var{coef_r8}
+@var{r_1} @var{V_1}
+@var{r_2} @var{V_2}
+@dots{}
+@var{r_n} @var{V_n}
+@end example
+
+or
+
+@example
+@var{coef_r6} @var{coef_r8} @var{coef_r10}
+@var{r_1} @var{V_1}
+@var{r_2} @var{V_2}
+@dots{}
+@var{r_n} @var{V_n}
+@end example
+
+@var{r_i} and @var{V_i}, @var{i}=1,2,...,n,inf are distance/energy the points. The first case is for @code{NatCubSpl} and @code{CubSplr6}, the second for @code{CubSplr6r8} and the last three for @code{CubSplFitr6r}, @code{CubSplFitr6r8}, and @code{CubSplFitr6r8r10}, where @var{coef_r6} @var{coef_r8} @var{coef_r10} are the coefficients @math{C_6}, @math{C_8}, and
+@c TeX version
+@tex
+@math{C_{10}}.
+@end tex
+@c no TeX version
+@ifnottex
+@math{C_{10}}.
+@end ifnottex
+
+@c ====== new node/chap;sec;sub
+@node Direct Potential,  , Natural Cubic Splines, Potentials
+@section Direct Potential
+
+Calculations can be carried using a direct potential, where the energy is get directly from the output of an electronic structure calculation.
+
+@strong{General syntax:}
+
+@example
+@var{elec_struc_command}
+@var{get_ener_command}
+@var{rm_command}
+@var{keyword} @var{format_ener} @var{format_dist}
+@var{r_inf} @var{zero_e_ret} @var{lower_bound} @var{upper_bound} @var{eq_dist} @var{force_const}
+@var{elec_struc_input}
+@dots{}
+@end example
+
+Here, @var{elec_struc_command} is the command to run the electronic structure calculation, @var{get_ener_command} is a command to print, in the standard output, the energy (that will be read by QuAC using the format @var{format_ener}), and @var{rm_command} is a command to delete the files from the electronic structure calculation. @var{keyword} is a word in the input file of the electronic structure that will be replaced by the distance to be calculated, using the fortran format @var{format_dist}. In the following line some properties of the potential that are automatically computed by QuAC for other potentials must be given, since the electronic structure programs usually have efficient procedures to calculate them. @var{r_inf} is the distance at which the particles can be considered isolated (this distance will be used to calculate the dissociation energy), @var{zero_e_ret} is the zero energy turning point, @var{lower_bound} and @var{upper_bound} are distances to be considered lower and upper bound of the potential, that is, the potential is assumed to be infinity below @var{lower_bound} and almost constant after @var{upper_bound} (but is also calculated directly after this point). @var{eq_dist} and @var{force_const} are the equilibrium distance and the force constant and should be negative if the potential is repulsive.
+
+The rest of the definition until a the end of the potential definition (the end of the input file or a line starting with @samp{POTENTIAL} or @samp{DIP_MOM}) is the input file to be used in the electronic structure calculation. It depends, of course, of the program and every instance of the keyword @var{keyword} in it will be replaced by the distance.
+
+@c ====== new node/chap;sec;sub
+@node Jobs, Output, Potentials, Top
+@chapter Jobs
+
+QuAC handle an arbitrary number of jobs and they are executed sequentially. Here is a general discussion of what each job does.
+
+@menu
+* Phase Shifts::                
+* Scattering Length::           
+* Bound States::                
+* Results Analysis::            
+@end menu
+
+@c ====== new node/chap;sec;sub
+@node Phase Shifts, Scattering Length, Jobs, Jobs
+@section Phase Shifts
+
+The first type of job implemented in QuAC is a phase shift calculation
+@cindex phase shift
+and this is for what QuAC was first designed (QuAC stands for @strong{Qu}antum @strong{A}tomic @strong{C}ollision). In this jobs the radial Schrödinger equation is integrated for positive energy values (relative to the dissociation limit) and the phase shift is obtained by the analysis of the behaviour of the wave function in the long non interacting range of the potential,
+@c TeX version
+@tex
+@math{\Psi_l(r) = \sin(\delta_l) j_l(kr) + \cos(\delta_l) n_l(kr)},
+where @math{\delta_l} is the phase shift, @math{j_l} and @math{n_l} are the spherical Bessel functions of first and second kind, and @math{k^2 = {{2mE} \over \hbar^2}}.
+@end tex
+@c no TeX version
+@ifnottex
+@math{u_l(r) = sin(d_l) j_l(kr) + cos(d_l) n_l(kr)},
+where @math{d_l} is the phase shift, @math{j_l} and @math{n_l} are the spherical Bessel functions of first and second kind, and @math{k^2 = 2mE/(h/2 pi)^2}.
+@end ifnottex
+
+QuAC stores the phase shifts for posterior analysis.
+
+@c ====== new node/chap;sec;sub
+@node Scattering Length, Bound States, Phase Shifts, Jobs
+@section Scattering Length
+
+The scattering length
+@cindex scattering length
+is calculated by the asymptotic analysis of the zero energy and zero angular momentum wave function at large distances. It behaves as
+@c TeX version
+@tex
+@math{\Psi_0(r) = Ar + B}, with @math{a_{scatt} = - {B \over A}}.
+@end tex
+@c no TeX version
+@ifnottex
+@math{u_0(r) = Ar + B}, with @math{a = - B/A}.
+@end ifnottex
+
+The scattering length can also be computed by the integration of the log-derivative equation, as described by Meshkov (REF). This is done using @samp{MESHKOV} as method of scattering length (@pxref{Scattering Length Method}).
+
+@c ====== new node/chap;sec;sub
+@node Bound States, Results Analysis, Scattering Length, Jobs
+@section Bound States
+
+The vibrational bound states can be obtained by the second order algorithm of Cooley and Lowdin (REF). They can be calculated in three ways. QuAC can calculate exactly the ones required, by the keywords @code{VibLevel} or @code{VibLevelMax} (@pxref{Vibrational Levels}), use the energies given as starting points for the algorithm or calculate all the vibrational levels, if neither the energies nor the vibrational levels were given. QuAC automatically stores the energy, vibrational level, number of iterations and wave function for posterior analysis.
+
+@c ====== new node/chap;sec;sub
+@node Results Analysis,  , Bound States, Jobs
+@section Results Analysis
+
+The calculations carried by Phase Shifts or Bound States calculations can be analysed in this job. The analysis implemented are the calculation of the total, partial and differential cross sections, for Phase Shifts results, and vibrational transition intensities, Dunhan parameters and vibrationally averaged equilibrium distances for Bound States results. Only one analysis is carried by each Results Analysis job and must be asked by the keyword @code{AnalysisType} (@pxref{Analysis Type}).
+
+@c ====== new node/chap;sec;sub
+@node Output, Keywords, Jobs, Top
+@chapter Output
+
+QuAC generates two output files. One, with an extension @samp{.out}, print the input, most import information, like parameters of calculations, results and masses. The other, with an extension @samp{.log}, print secondary informations, like potential information, the wave function (if requested), phase shifts (if requested), etc.
+
+@c ====== new node/chap;sec;sub
+@node Keywords, Code, Output, Top
+@chapter Keywords
+
+The behaviour of the calculations carried by QuAC can be modified by several keywords, some optional and some mandatory for some calculations. The keywords for masses (@pxref{Masses and Atoms}) and format (@pxref{Format}) specification are the only that are given outside the jobs and are applied to all calculation, until another format or mass specification is reached, which overwrite the previous definitions.
+
+All the other keywords apply for the concerned job. They have one of the general syntaxes:
+
+@example
+keyword [@var{arguments} @dots{}]
+[@var{arguments}]
+[@dots{}]
+[@var{arguments}]
+@end example
+
+Whether some or all of the arguments are required depends on @samp{keyword}.
+
+@menu
+* Masses and Atoms::            
+* Format ::                     
+* Calculation Keywords::        
+* Analysis Keywords::           
+@end menu
+
+@c ====== new node/chap;sec;sub
+@node Masses and Atoms, Format , Keywords, Keywords
+@section Masses and Atoms
+
+The keywords @code{MASSES},
+@findex MASSES
+@code{RED_MASS}
+@findex RED_MASS
+and @code{ATOMS}
+@findex ATOMS
+can be used to define the masses of the particles. The first two are used to give directly the numerical value of the masses, along with the unit, and the last to give the atomic symbols and use the corresponding masses from the atomic data library of QuAC. A list of the atoms and the syntax of atomic symbols available can be viewed running @command{QuAC --atoms}.
+@cindex mass
+@cindex reduced mass
+@cindex atoms
+
+@strong{General syntax:}
+
+@example
+MASSES @var{mass_1} @var{mass_2} @var{unit}
+@end example
+
+or
+
+@example
+RED_MASS @var{reduced_mass} @var{unit}
+@end example
+
+or
+
+@example
+ATOMS @var{atom_1} @var{atom_2}
+@end example
+
+@var{mass_1} and @var{mass_2} are the masses of the particles, @var{reduced_mass} is the reduced mass of the two particle system, and @var{atom_1} and @var{atom_2} are atomic symbols. @var{unit} is an unit of mass.
+
+@strong{Incompatibilities:}
+
+If a differential cross section in the laboratory system of reference will be calculated, the mass of both particles should be given.
+
+@strong{Default values:}
+
+ANALYSE DEFAULT VALUES. WHEN MASS DEFINITION CAN BE SKIPPED?
+
+@c ====== new node/chap;sec;sub
+@node Format , Calculation Keywords, Masses and Atoms, Keywords
+@section Format
+
+The format for output print can be specified with the keyword @code{FORMAT}.
+@findex FORMAT
+@cindex fortran format
+@cindex format
+
+@strong{General syntax:}
+
+@example
+FORMAT
+@var{quantity} @var{format}
+@var{quantity} @var{format}
+@dots{}
+@var{quantity} @var{format}
+@end example
+
+@var{quantity} can be one of the following: @samp{energy}, @samp{energy_cm-1}, @samp{cross_sec}, @samp{angle}, @samp{ang_momentum}, @samp{distance}, @samp{wave_function}, or @samp{potential}. @var{format} is any valid fortran format (without the enclosing parentheses) for @samp{REAL} or @samp{INTEGER} kind of variable, depending, of course, of @var{quantity}. All the formats can be restored to default values using @samp{default} as @var{quantity}, case in which no @var{format} need to be passed.
+
+@strong{Incompatibilities:}
+
+There are no incompatibilities for this keyword.
+
+@strong{Default values:}
+
+The default formats are: @samp{ES15.8} for @samp{energy}, @samp{ES15.8} for @samp{cross_section}, @samp{F0.10} for @samp{angle}, @samp{I0} for @samp{ang_momentum}, @samp{F0.10} for @samp{distance}, @samp{ES15.8} for @samp{wave_function}, @samp{ES17.10} for @samp{potential}, and @samp{F0.5} for @samp{energy_cm1}
+
+@c ====== new node/chap;sec;sub
+@node Calculation Keywords, Analysis Keywords, Format , Keywords
+@section Calculation Keywords
+
+Calculation keywords.
+
+@menu
+* Angular Momentum::            
+* Energy and Velocity::         
+* Integration Method::          
+* Integration Step::            
+* Print::                       
+* Normalisation::               
+* Potential Name::              
+* Initial Condition::           
+* Save Steps::                  
+* Phase Shift Method::          
+* R min and R max::             
+* Additional Steps::            
+* Save Steps at each::          
+* Print Phase Shifts::          
+* Save Global Potential::       
+* Scattering Length Method::    
+* Meshkov Parameters::          
+* Richardson Extrapolation::    
+* Vibrational Levels::          
+* Vibrational Fixed Mesh::      
+* Print Vibration Iterations::  
+* Print WF Vibration Iterations::  
+* Maximum Iteration::           
+* Vibrational Threshold::       
+* Vibrational R ini shift::     
+@end menu
+
+@c ====== new node/chap;sec;sub
+@node Angular Momentum, Energy and Velocity, Calculation Keywords, Calculation Keywords
+@subsection Angular Momentum
+
+The specification of the angular momentum for @code{PHASE_SHIFTS} and for @code{BOUND_STATES} calculations can be done giving the individuals values or the maximum value and must be given just once.
+
+@strong{General syntax:}
+
+@example
+l
+@var{l_1}
+@var{l_2}
+@dots{}
+@var{l_n}
+@end example
+@findex l
+
+or
+
+@example
+lmax @var{l_max}
+@end example
+@findex lmax
+
+@var{l_1}, @var{l_2}, @var{l_n}, @var{l_max} must be integers and the later case is equivalent to give all values from zero to the maximum values specified. 
+
+@strong{Incompatibilities:}
+
+The value of angular momentum should not be given for a @code{SCATT_LENGTH} calculation, since it does only zero angular momentum integration.
+
+@strong{Default values:}
+
+There is no default values for @code{PHASE_SHIFTS} calculation and it always must be given. For @code{BOUND_STATES}, only the zero rotational levels are calculated by default.
+
+@c ====== new node/chap;sec;sub
+@node Energy and Velocity, Integration Method, Angular Momentum, Calculation Keywords
+@subsection Energy and Velocity
+
+The energy for the calculation can be given individually, in a range or in an exponential range. It can be given as energy or as velocity and the @var{unit} must be consistent with this choice.
+
+@strong{General syntax:}
+
+@example
+Energy @var{unit}
+@var{energy_1}
+@var{energy_2}
+@dots{}
+@var{energy_n}
+@end example
+@findex Energy
+@findex Velocity
+
+or
+
+@example
+InterEnergy @var{e_min} @var{e_max} @var{delta_e} @var{unit}
+@end example
+@findex InterVelocity
+
+or
+
+@example
+ExpInterEnergy @var{exp_min} @var{exp_max} @var{delta_exp} @var{unit}
+@end example
+@findex ExpInterVelocity
+
+In the first case the values of @var{energy_1}, @var{energy_2}, and @var{energy_n} are the energies required. In the second, the values of energy are between @var{e_min} (including) and @var{e_max}, increasing by @var{delta_e}. In the later case the range is given in the exponent (base 10). Analogously, replacing @samp{Energy} by @samp{Velocity}, the values can be given as the collision velocity.
+
+@strong{Incompatibilities:}
+
+It is not allowed pass velocity For a @code{BOUND_STATES} calculation.
+
+@strong{Default values:}
+
+For @code{PHASE_SHIFTS} there are no default values and the energy is mandatory. For @code{SCATT_LENGTH} the integration is carried at zero energy by default. The behaviour of a @code{BOUND_STATES} calculation with no energy given explicitly depends on the vibrational levels required. (@xref{Bound States}.)
+
+@c ====== new node/chap;sec;sub
+@node Integration Method, Integration Step, Energy and Velocity, Calculation Keywords
+@subsection Integration Method
+
+The numerical integration can be performed by fourth-order Runge-Kutta, Adams-Bashforth-Moulton predictor-corrector, Numerov, or Johnson log-derivative method. It is specified by the keyword @code{IntMeth}
+
+@strong{General syntax:}
+
+@example
+IntMeth @var{int_method}
+@end example
+@findex IntMeth
+
+Here @code{int_method} is the integration method and can be @var{RK4}, @var{ABM}, @var{NUMEROV}, or @var{JOHNSON}.
+
+@strong{Incompatibilities:}
+
+The Johnson log-derivative method is implemented only for @code{SCATT_LENGTH} calculations by the Meshkov procedure, for which is required. (@xref{Scattering Length}.)
+
+@strong{Default values:}
+
+The default integration method is the Numerov, with the exception of the Meshkov procedure for scattering length calculation, which requires the Johnson log-derivative method.
+
+@c ====== new node/chap;sec;sub
+@node Integration Step, Print, Integration Method, Calculation Keywords
+@subsection Integration Step
+
+The integration step of the numerical integration can be changed using the @code{IntStep} and @code{FinalIntStep} keywords. The first gives the step size of the integration through the interaction region. This step can be iteratively doubled in the long range region of the potential until the value specified by the second keyword. The units of the integration steps specified by these keywords are the same of the distance unit used in the potential definition.
+
+@strong{General syntax:}
+
+@example
+IntStep @var{step}
+@end example
+@findex IntStep
+
+or
+
+@example
+FinalIntStep @var{step}
+@end example
+@findex FinalIntStep
+
+@var{step} is the step size in the unit used in the potential of the current job.
+
+@strong{Incompatibilities:}
+
+The @code{IntStep} keyword should not be given for a scattering length by the Meshkov procedure. Use @code{AddSteps} instead, to give the size of the integration mesh, @pxref{Additional Steps}. @code{FinalIntStep} can be given only for @code{PHASE_SHIFTS} and @code{SCATT_LENGTH} calculations. Must be greater or equal the integration step.
+@findex AddSteps
+
+@strong{Default values:}
+
+The default integration step is
+@ifnottex
+rho = kr = 0.005
+@end ifnottex
+@tex
+$\rho = kr = 0.005$
+@end tex
+.(@xref{Overview}.)
+
+@c ====== new node/chap;sec;sub
+@node Print, Normalisation, Integration Step, Calculation Keywords
+@subsection Print
+
+The wave function can be printed in the @samp{.log} file using the keyword @code{Print}. Since most calculations involves several integration, take care because huge files may be generated even for medium size calculations!
+
+@strong{General syntax:}
+
+@example
+Print @var{print_interval}
+@end example
+@findex Print
+
+The wave function will be printed at each @var{print_interval} steps.
+
+@strong{Incompatibilities:}
+
+Currently is not possible print the final vibrational wave function if @code{SaveGlobalPot} (@pxref{Save Global Potential}) is given.
+
+@strong{Default values:}
+
+By default the wave function is not printed.
+
+@c ====== new node/chap;sec;sub
+@node Normalisation, Potential Name, Print, Calculation Keywords
+@subsection Normalisation
+
+The normalisation of the wave function can be controlled using the keyword @code{WFScale}. It can be used to avoid overflow or underflow for some problematic cases or to print wave functions scaled as your desire.
+
+@strong{General syntax:}
+
+@example
+WFScale @var{scale}
+@end example
+@findex WFScale
+
+The initial condition of the numerical integration will be multiplied by the @var{scale} argument.
+
+@strong{Incompatibilities:}
+
+There are no incompatibilities for this keyword.
+
+@strong{Default values:}
+
+The default value of @var{scale} is 1.
+
+@c ====== new node/chap;sec;sub
+@node Potential Name, Initial Condition, Normalisation, Calculation Keywords
+@subsection Potential Name
+
+The keyword @code{PotName} should be used to define the potential that will be used in the job. It should be the name of one of the potentials given in the input. (@xref{Potentials}.)
+
+@strong{General syntax:}
+
+@example
+PotName @var{potential_name}
+@end example
+@findex PotName
+
+@var{potential_name} is the name of the potential to be used in this job.
+
+@strong{Incompatibilities:}
+
+There are no incompatibilities for this keyword.
+
+@strong{Default values:}
+
+If just one potential was defined in the input, this is the default potential and this keyword is not required. if more than one potential was given, there is no potential default and it should be passed.
+
+@c ====== new node/chap;sec;sub
+@node Initial Condition, Save Steps, Potential Name, Calculation Keywords
+@subsection Initial Condition
+
+The initial condition of the free particle (the value of the function in the first point is not zero, @xref{Overview},) can be used, by the keyword @code{FPIniCond}.
+
+@strong{General syntax:}
+
+@example
+FPIniCond
+@end example
+@findex FPIniCond
+
+@strong{Incompatibilities:}
+
+There are no incompatibilities for this keyword. CHANGE THE BOUND----> INWARD INTEGRATION WILL FAIL!!
+
+@strong{Default values:}
+
+The initial condition of the free particle is used by default just for calculations on @samp{FREE_PARTICLE} or @samp{Square} potentials. In the other cases the derivative is the one of the free particle and the value of the function is set to zero at the initial integration point.
+
+@c ====== new node/chap;sec;sub
+@node Save Steps, Phase Shift Method, Initial Condition, Calculation Keywords
+@subsection Save Steps
+
+The steps saved in the end of the numerical integration for posterior analysis can be printed in the @samp{.log} file using the @code{SaveSteps} keyword.
+
+@strong{General syntax:}
+
+@example
+SaveSteps
+@end example
+@findex SaveSteps
+
+@strong{Incompatibilities:}
+
+There are no incompatibilities for this keyword.
+
+@strong{Default values:}
+
+The points are not printed in the @samp{.log} file by default.
+
+@c ====== new node/chap;sec;sub
+@node Phase Shift Method, R min and R max, Save Steps, Calculation Keywords
+@subsection Phase Shift Method
+
+The phase shift calculation method can be changed using the keyword @code{PhaseShiftMeth}. @emph{Nowadays only one phase shift method is implemented!}
+
+@strong{General syntax:}
+
+@example
+PhaseShiftMeth @var{method}
+@end example
+@findex PhaseShiftMeth
+
+The only value for @var{method} implemented is @samp{REGRESSION}.
+
+@strong{Incompatibilities:}
+
+It is valid just for a @code{PHASE_SHIFTS} calculation.
+
+@strong{Default values:}
+
+The default phase shift calculation method is @samp{REGRESSION}.
+
+@c ====== new node/chap;sec;sub
+@node R min and R max, Additional Steps, Phase Shift Method, Calculation Keywords
+@subsection R min and R max
+
+The initial and final points of the numerical integration are changed using the @code{Rmin} and @code{Rmax} keywords, respectively. Like the integration step, they are given in the unit used in the potential definition of the current job.
+
+@strong{General syntax:}
+
+@example
+Rmin @var{r_min}
+@end example
+@findex Rmin
+
+or
+
+@example
+Rmax @var{r_max}
+@end example
+@findex Rmax
+
+@strong{Incompatibilities:}
+
+For a @code{BOUND_STATES} calculation they can be passed only in a fixed mesh calculation. (@xref{Bound States}.). The value of @var{r_min} can not be lower than the lower bound of the corresponding potential. (@xref{Potentials}.)
+
+@strong{Default values:}
+
+The default value of @var{r_min} and @var{r_max} are the lower and the upper bound of the potential, respectively. If the lower bound is zero it will depend of the potential.(@xref{Potentials}.)
+
+@c ====== new node/chap;sec;sub
+@node Additional Steps, Save Steps at each, R min and R max, Calculation Keywords
+@subsection Additional Steps
+
+After the integration up to @var{r_max} and the eventual increasing of the step size, the integration is carried out some more points to be saved for further analysis. The number of steps of this extra integration is given by the keyword @code{AddSteps}. For @code{SCATT_LENGTH} calculation by the Meshkov procedure it consists of the number of steps in the mesh.
+
+@strong{General syntax:}
+
+@example
+AddSteps @var{steps}
+@end example
+@findex AddSteps
+
+@var{steps} is the number of the extra steps.
+
+@strong{Incompatibilities:}
+
+Has meaning only for @code{PHASE_SHIFTS} and @code{SCATT_LENGTH} calculations.
+
+@strong{Default values:}
+
+The default value for the additional steps is 1000.
+
+@c ====== new node/chap;sec;sub
+@node Save Steps at each, Print Phase Shifts, Additional Steps, Calculation Keywords
+@subsection Save Steps at each
+
+The interval at each steps are saved in the additional integration can be set using the @code{SaveAtEach} keyword.
+
+@strong{General syntax:}
+
+@example
+SaveAtEach @var{interval}
+@end example
+@findex SaveAtEach
+
+@var{interval} is the interval at which each step are saved.
+
+@strong{Incompatibilities:}
+
+Do not have meaning for @code{SaveAtEach} for @code{BOUND_STATES} or @code{SCATT_LENGTH} by Meshkov procedure calculations.
+
+@strong{Default values:}
+
+Points are saved at every step, i.e., the default value of @var{interval} is 1.
+
+@c ====== new node/chap;sec;sub
+@node Print Phase Shifts, Save Global Potential, Save Steps at each, Calculation Keywords
+@subsection Print Phase Shifts
+
+To print the phase shifts in the @samp{.log} file use the keyword @code{PrintPhaseShift}
+
+@strong{General syntax:}
+
+@example
+PrintPhaseShift
+@end example
+@findex PrintPhaseShift
+
+@strong{Incompatibilities:}
+
+Have meaning only for @code{PHASE_SHIFTS} calculations.
+
+@strong{Default values:}
+
+The phase shifts are not printed by default.
+
+@c ====== new node/chap;sec;sub
+@node Save Global Potential, Scattering Length Method, Print Phase Shifts, Calculation Keywords
+@subsection Save Global Potential
+
+In order to save computing time, the potential at every point needed in a calculation can be calculated just once and stored. This is useful specially for computing demanding potentials, like @samp{Direct} potential.
+
+@strong{General syntax:}
+
+@example
+SaveGlobalPot
+@end example
+@findex SaveGlobalPot
+
+@strong{Incompatibilities:}
+
+Not implemented for @code{SCATT_LENGTH} calculation, since only one calculation is carried. For a @code{BOUND_STATES} calculation require a fixed mesh points integration. (@xref{Vibrational Fixed Mesh}.)
+
+@strong{Default values:}
+
+Do not save the potential by default.
+
+@c ====== new node/chap;sec;sub
+@node Scattering Length Method, Meshkov Parameters, Save Global Potential, Calculation Keywords
+@subsection Scattering Length Method
+
+One of the two methods available to calculate the scattering length can be specified by the keyword @code{ScattLenMeth}.(@xref{Scattering Length}.)
+
+@strong{General syntax:}
+
+@example
+ScattLenMeth @var{method}
+@end example
+@findex ScattLenMeth
+
+@var{method} can be @samp{DIRECT} or @samp{MESHKOV}.
+
+@strong{Incompatibilities:}
+
+Have meaning only for @code{SCATT_LENGTH} calculation.
+
+@strong{Default values:}
+
+The default method is the @samp{DIRECT}.
+
+@c ====== new node/chap;sec;sub
+@node Meshkov Parameters, Richardson Extrapolation, Scattering Length Method, Calculation Keywords
+@subsection Meshkov Parameters
+
+The Meshkov parameters, 
+@ifnottex
+r_bar and beta
+@end ifnottex
+@tex
+$\bar{r}$ and $\beta$
+@end tex
+(@xref{Scattering Length}.), are required for a Meshkov procedure for scattering length calculation. It can be given with the keyword @code{MeshkovParam}.
+
+@strong{General syntax:}
+
+@example
+MeshkovParam @var{r_bar} @var{beta}
+@end example
+@findex MeshkovParam
+
+The @var{r_bar} and @var{beta} arguments are the Meshkov parameters and @var{r_bar} must be given in the units used in the potential of the current job.
+
+@strong{Incompatibilities:}
+
+Have meaning only for scattering length calculations by the Meshkov procedure.
+
+@strong{Default values:}
+
+Do not have default values. Must be given in a Meshkov calculation.
+
+@c ====== new node/chap;sec;sub
+@node Richardson Extrapolation, Vibrational Levels, Meshkov Parameters, Calculation Keywords
+@subsection Richardson Extrapolation
+
+A Meshkov calculation with the Richardson extrapolation to zero step size can be achieved using the keyword @code{RichardsonExtr}.
+
+@strong{General syntax:}
+
+@example
+RichardsonExtr
+@end example
+@findex RichardsonExtr
+
+@strong{Incompatibilities:}
+
+Have meaning only for scattering length calculations by the Meshkov procedure.
+
+@strong{Default values:}
+
+By default the Richardson extrapolation is not done.
+
+@c ====== new node/chap;sec;sub
+@node Vibrational Levels, Vibrational Fixed Mesh, Richardson Extrapolation, Calculation Keywords
+@subsection Vibrational Levels
+
+The required vibrational levels for a @code{BOUND_STATES} calculation can be specified  in two ways, similar to the specification of the angular momentum. (@xref{Angular Momentum}.)
+
+@strong{General syntax:}
+
+@example
+VibLevel
+@var{v_1}
+@var{v_2}
+@dots{}
+@var{v_n}
+@end example
+@findex VibLevel
+
+or
+
+@example
+VibLevelMax @var{v_max}
+@end example
+@findex VibLevelMax
+
+Here, @var{v_1}, @var{v_2}, @var{v_n}, and @var{v_max} are integers and correspond to the vibrational levels required. The second case is equivalent to ask for the levels 0, 1, ..., v_max by the first.
+
+@strong{Incompatibilities:}
+
+Have meaning only for a @code{BOUND_STATES} calculation.
+
+@strong{Default values:}
+
+If not passed in a vibrational calculation, QuAC attempt to calculate every vibrational level.
+
+@c ====== new node/chap;sec;sub
+@node Vibrational Fixed Mesh, Print Vibration Iterations, Vibrational Levels, Calculation Keywords
+@subsection Vibrational Fixed Mesh
+
+In order to run a calculation with the potential calculated just once (@xref{Save Global Potential},) the integration mesh must be fixed and this should be asked by the @code{VibFixedMesh} keyword. @emph{QuAC do not tries to be smart and save a global potential just because you ask for a fixed mesh calculation or vice-versa! It must be done manually!}
+
+@strong{General syntax:}
+
+@example
+VibFixedMesh
+@end example
+@findex VibFixedMesh
+
+@strong{Incompatibilities:}
+
+Have meaning only for a @code{BOUND_STATES} calculation.
+
+@strong{Default values:}
+
+It do not run a fixed mesh calculations by default.
+
+@c ====== new node/chap;sec;sub
+@node Print Vibration Iterations, Print WF Vibration Iterations, Vibrational Fixed Mesh, Calculation Keywords
+@subsection Print Vibration Iterations
+
+The information of each iteration for a @code{BOUND_STATES} calculations can be printed if requested by the @code{PrintVibIterations} keyword.
+
+@strong{General syntax:}
+
+@example
+PrintVibIterations
+@end example
+@findex PrintVibIterations
+
+@strong{Incompatibilities:}
+
+Have meaning only for a @code{BOUND_STATES} calculation.
+
+@strong{Default values:}
+
+The iterations are not printed by default.
+
+@c ====== new node/chap;sec;sub
+@node Print WF Vibration Iterations, Maximum Iteration, Print Vibration Iterations, Calculation Keywords
+@subsection Print WF Vibration Iterations
+
+If the keyword @code{PrintVibWFIterations} is given, the wave function will be printed in every iteration for a @code{BOUND_STATES} calculation. The keyword @code{Print} (@xref{Print},) can be used to define the interval that the wave function will be printed.
+
+@strong{General syntax:}
+
+@example
+PrintVibWFIterations
+@end example
+@findex PrintVibWFIterations
+
+@strong{Incompatibilities:}
+
+Have meaning only for a @code{BOUND_STATES} calculation.
+
+@strong{Default values:}
+
+The vibrational wave function for each iterations are not printed by default.
+
+@c ====== new node/chap;sec;sub
+@node Maximum Iteration, Vibrational Threshold, Print WF Vibration Iterations, Calculation Keywords
+@subsection Maximum Iteration
+
+The maximum number of iterations in a vibrational calculation can be specified using the keywords @code{Vib1stOrderMaxIter} and @code{VibMaxIter}. The first is the maximum number of iterations of the first order halving algorithm, used to approach to the desired eigenvalue, and the second is the maximum total number of iterations.
+
+@strong{General syntax:}
+
+@example
+Vib1stOrderMaxIter @var{maxit_1}
+@end example
+@findex Vib1stOrderMaxIterx
+
+or
+
+@example
+VibMaxIter @var{maxit_tot}
+@end example
+
+The values @var{maxit_1} and @var{maxit_tot} are the maximum number of iterations, of the first order and total algorithm, respectively.
+
+@strong{Incompatibilities:}
+
+Have meaning only for a @code{BOUND_STATES} calculation.
+
+@strong{Default values:}
+
+The default value for @var{maxit_1} is 20 and for @var{maxit_tot} is 50.
+
+@c ====== new node/chap;sec;sub
+@node Vibrational Threshold, Vibrational R ini shift, Maximum Iteration, Calculation Keywords
+@subsection Vibrational Threshold
+
+The threshold of the vibrational calculation is specified with the keyword @code{VibThreshold}.
+
+@strong{General syntax:}
+
+@example
+VibThreshold @var{threshold}
+@end example
+@findex VibThreshold
+
+@var{threshold} is the threshold in
+@ifnottex
+cm-1
+@end ifnottex
+@tex
+cm$^{-1}$
+@end tex
+, if the energy was not given for this job or in the same used in the energy specification.
+
+@strong{Incompatibilities:}
+
+Have meaning only for a @code{BOUND_STATES} calculation.
+
+@strong{Default values:}
+
+The default value is
+@ifnottex
+1.0E-5 cm-1
+@end ifnottex
+@tex
+$1.0 \cdot 10^{-5}$ cm$^{-1}$
+@end tex
+.
+
+@c ====== new node/chap;sec;sub
+@node Vibrational R ini shift,  , Vibrational Threshold, Calculation Keywords
+@subsection Vibrational R ini shift
+
+The first point in the outward and inward integration can be specified by keyword @code{VibRiniShift}. Its arguments correspond to how much away from the classical turning points the integration should start.
+
+@strong{General syntax:}
+
+@example
+VibRiniShift @var{shift_int} @var{shift_ext}
+@end example
+@findex VibRiniShift
+
+The outward integration will begin at @samp{ICTP} - @var{shift_int}, where @samp{ICTP} is the internal classical turning point, in the unit used in the potential definition. CHECK!!!! Analogously for @var{shift_ext}
+
+@strong{Incompatibilities:}
+
+incompatibilities
+
+@strong{Default values:}
+
+default
+
+@c ====== new node/chap;sec;sub
+@node Analysis Keywords,  , Calculation Keywords, Keywords
+@section Analysis Keywords
+
+Analysis keywords.
+
+@menu
+* Analysis Type::               
+* Angles::                      
+* Job Analysed::                
+* Electric Dipole Function::    
+* Frank Condon::                
+* Electronic Transition::       
+* CM System of Reference::      
+* Dunhan Parameters::           
+* Cross Section Unit::          
+@end menu
+
+@c ====== new node/chap;sec;sub
+@node Analysis Type, Angles, Analysis Keywords, Analysis Keywords
+@subsection Analysis Type
+
+The analysis type to be performed by the job should be given by the @code{AnalysisType} keyword. 
+
+@strong{General syntax:}
+
+@example
+AnalysisType @var{type}
+@end example
+@findex AnalysisType
+
+Here, @var{type} is the analysis type and can be one of the followings: @samp{PartialCrossSec}, @samp{TotalCrossSec}, @samp{DifferentialCrossSec}, @samp{VibrationalIntensity}, @samp{DunhanExpansion}, and @samp{EquilibriumDistance}. (@xref{Overview}.)
+
+@strong{Incompatibilities:}
+
+The analysis type must be consistent with the job to be analysed. Hence @samp{PartialCrossSec}, @samp{TotalCrossSec}, and @samp{DifferentialCrossSec} can be asked only for @code{PHASE_SHIFTS} calculations and @samp{VibrationalIntensity}, @samp{DunhanExpansion}, and @samp{EquilibriumDistance} only for @code{BOUND_STATES} calculations.
+
+@strong{Default values:}
+
+There are no default values for this keyword and it must be passed for every @code{RES_ANALYSIS} job.
+
+@c ====== new node/chap;sec;sub
+@node Angles, Job Analysed, Analysis Type, Analysis Keywords
+@subsection Angles
+
+The angles for an differential cross section analysis must be passed by the @code{Angle} or @code{InterAngle} keywords.
+
+@strong{General syntax:}
+
+@example
+Angle
+@var{angle_1}
+@var{angle_2}
+@dots{}
+@var{angle_n}
+@end example
+@findex Angle
+
+or
+
+@example
+InterAngle @var{a_min} @var{a_max} @var{delta_a}
+@end example
+@findex InterAngle
+
+
+The values @var{angle_1}, @var{angle_2}, and @var{angle_n}, for the first case, are the angles required, in degree. In the second the angles are from @var{a_min} (including) to @var{a_max}, increasing by @var{delta_a}.
+
+@strong{Incompatibilities:}
+
+Have meaning only for a @samp{DifferentialCrossSec} analysis type.
+
+@strong{Default values:}
+
+There are no default values for angles and it must be given for every differential cross section calculation.
+
+@c ====== new node/chap;sec;sub
+@node Job Analysed, Electric Dipole Function, Angles, Analysis Keywords
+@subsection Job Analysed
+
+The job or the jobs to be analysed must be given with the keywords @code{Job} and @code{Jobs}.
+
+@strong{General syntax:}
+
+@example
+Job @var{job_name}
+@end example
+@findex Job
+or
+
+@example
+Jobs @var{job_name_1} @var{job_name_2}
+@end example
+@findex Jobs
+
+@var{job_name}, @var{job_name_1}, and @var{job_name_2} are the names of the jobs. The first can be given with spaces and the complete name are properly recognised, but for the second keyword the job names, @var{job_name_1} or @var{job_name_2} can not have spaces. To give two jobs when both or one of them have spaces use the keyword @var{Job} twice.
+
+@strong{Incompatibilities:}
+
+The job required should be consistent with the analysis type. (@xref{Analysis Type}.) The only analysis type which analyse two jobs is @samp{VibrationalIntensity}. You can analyse only jobs calculated before the analysis.
+
+@strong{Default values:}
+
+There are no default values for these keywords. The job (or jobs) must be passed for every analysis.
+
+@c ====== new node/chap;sec;sub
+@node Electric Dipole Function, Frank Condon, Job Analysed, Analysis Keywords
+@subsection Electric Dipole Function
+
+The electric dipole moment function for an intensity analysis can be given with the keyword @code{ElecDipoleFunction}.
+
+@strong{General syntax:}
+
+@example
+ElecDipoleFunction @var{dip_name}
+@end example
+@findex ElecDipoleFunction
+
+@var{dip_name} is the name of the dipole moment function to be used in this analysis.
+
+@strong{Incompatibilities:}
+
+Have meaning only for a @code{VibrationalIntensity} analysis. It is incompatible with the keyword @code{FrankCondon}.
+@findex FrankCondon
+
+@strong{Default values:}
+
+There are no default value for this keyword. !!!CHANGE TO RECOGNISE IF ONLY ONE WAS GIVEN!!
+
+@c ====== new node/chap;sec;sub
+@node Frank Condon, Electronic Transition, Electric Dipole Function, Analysis Keywords
+@subsection Frank Condon
+
+The vibrational intensity with the Frank Condon approximation can be carried using the keyword @code{FrankCondon}.
+
+@strong{General syntax:}
+
+@example
+FrankCondon @var{ave_dip} @var{ave_dip_unit}
+@end example
+@findex FrankCondon
+
+Here the @var{ave_dip} and @var{ave_dip_unit} arguments are the averaged electric transition dipole moment and its unit, respectively.
+
+
+@strong{Incompatibilities:}
+
+Have meaning only for @samp{VibrationalIntensity} analysis performed with two vibrational jobs. It is incompatible with the keyword @code{ElecDipoleFunction}.
+@findex ElecDipoleFunction
+
+@strong{Default values:}
+
+By default the Frank Condon approximation is not assumed.
+
+@c ====== new node/chap;sec;sub
+@node Electronic Transition, CM System of Reference, Frank Condon, Analysis Keywords
+@subsection Electronic Transition
+
+The energy difference between the botton of the two wells in a vibronic transition. job1%ener-job2%ener
+
+@strong{General syntax:}
+
+@example
+ElecTransEnergy @var{energy}  @var{unit} 
+@end example
+@findex ElecTransEnergy
+
+
+
+@strong{Incompatibilities:}
+
+Have meaning only for ...
+
+@strong{Default values:}
+
+xaasdsad
+
+@c ====== new node/chap;sec;sub
+@node CM System of Reference, Dunhan Parameters, Electronic Transition, Analysis Keywords
+@subsection CM System of Reference
+
+Calculate the differential cross section in the centre of mass (CM) system of reference can be done with the keyword @code{CenterOfMassSys}.
+
+@strong{General syntax:}
+
+@example
+CenterOfMassSys
+@end example
+@findex CenterOfMassSys
+
+@strong{Incompatibilities:}
+
+Have meaning only for a @samp{DifferentialCrossSec} analysis.
+
+@strong{Default values:}
+
+By default the differential cross section is calculated in the laboratory system of reference.
+
+@c ====== new node/chap;sec;sub
+@node Dunhan Parameters, Cross Section Unit, CM System of Reference, Analysis Keywords
+@subsection Dunhan Parameters
+
+The Dunhan parameters that will be computed in an @samp{DunhanExpansion} analysis can be defined with the keywords @code{DunhanNumberOfParam}, @code{DunhanPureVibrational}, or @code{DunhanPureRotational}.
+
+@strong{General syntax:}
+
+@example
+DunhanNumberOfParam @var{n_vib} @var{n_rot} @var{n_vib_rot}
+@end example
+@findex DunhanNumberOfParam
+
+@example
+DunhanPureVibrational @var{n_vib}
+@end example
+@findex DunhanPureVibrational
+
+@example
+DunhanPureRotational @var{n_rot}
+@end example
+@findex DunhanPureRotational
+
+The arguments @var{n_vib}, @var{n_rot} and @var{n_vib_rot} stands for the number of parameters vibrational, rotational and vibrational-rotational coupling in the Dunhan expansion. (@xref{Overview}.)
+
+@strong{Incompatibilities:}
+
+Have meaning only for a @samp{DunhanExpansion} analysis.
+
+@strong{Default values:}
+
+There are no default value for the number of Dunhan parameters. One (and only one) of these keywords must be given.
+
+@c ====== new node/chap;sec;sub
+@node Cross Section Unit,  , Dunhan Parameters, Analysis Keywords
+@subsection Cross Section Unit
+
+The unit to print the cross section can be given with the @code{CrossSecUni} keyword. @emph{This keyword can also be used in an @code{SCATT_LENGTH} calculation, since the corresponding zero energy cross section is automatically computed.}
+
+@strong{General syntax:}
+
+@example
+CrossSecUni @var{unit}
+@end example
+@findex CrossSecUni
+
+The argument @var{unit} is an unit of distance.
+
+@strong{Incompatibilities:}
+
+Have meaning only for @samp{PartialCrossSec}, @samp{TotalCrossSec}, @samp{DifferentialCrossSec} analysis and @code{SCATT_LENGTH} calculation.
+
+@strong{Default values:}
+
+By default the cross section are printed in atomic units,
+@ifnottex
+a0^2
+@end ifnottex
+@tex
+$a_0^2$
+@end tex
+.
+
+@c ====== new node/chap;sec;sub
+@node Code, Keyword Index, Keywords, Top
+@chapter Code
+
+What you need now to change the source code.
+
+@c ---> Part 6: The End of the Document
+@c ====== new node/chap;sec;sub
+@node Keyword Index, Concept Index, Code, Top
+@unnumbered Keyword Index
+@printindex fn
+
+@c ====== new node/chap;sec;sub
+@node Concept Index,  , Keyword Index, Top
+@unnumbered Concept Index
+@printindex cp
+
+@bye

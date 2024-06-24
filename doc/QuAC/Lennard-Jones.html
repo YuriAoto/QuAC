@@ -1,0 +1,99 @@
+<html lang="en">
+<head>
+<title>Lennard Jones - QuAC Manual 1.0</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="QuAC Manual 1.0">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Potentials.html#Potentials" title="Potentials">
+<link rel="prev" href="Square.html#Square" title="Square">
+<link rel="next" href="Morse.html#Morse" title="Morse">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+QuAC is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+QuAC - Quantum Atomic Collisions
+Copyright (C) 2009, 2010, 2011, 2012  Yuri Aoto-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Lennard-Jones"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Morse.html#Morse">Morse</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Square.html#Square">Square</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Potentials.html#Potentials">Potentials</a>
+<hr>
+</div>
+
+<h3 class="section">4.4 Lennard Jones</h3>
+
+<p>Lennard-Jones potentials can be given in multiples ways. The parameters can be given by <code>LenJon</code>,
+<a name="index-LenJon-4"></a>which refers to the common (12,6) potential (first expression), and by <code>LenJon-</code><var>N</var><code>-</code><var>M</var>,
+<a name="index-LenJon_002d_0040var_007bN_007d_002d_0040var_007bM_007d-5"></a>which refers to a (<var>N</var>+<var>M</var>,<var>N</var>) type (second expression). The potential names <code>LSLenJon</code>
+<a name="index-LSLenJon-6"></a>and <code>LSLenJon-</code><var>N</var><code>-</code><var>M</var>
+<a name="index-LSLenJon_002d_0040var_007bN_007d_002d_0040var_007bM_007d-7"></a>corresponds to a Lennard-Jones ((12,6) and (<var>N</var>+<var>M</var>,<var>N</var>), respectively) potentials whose parameters is obtained by least square over the given points.
+
+   <p><strong>Expression:</strong>
+
+<!-- TeX version -->
+<!-- no TeX version -->
+   <p>V(r) = D[(r_0/r)^12 - 2(r_0/r)^6]
+
+<!-- Tex version -->
+<!-- no Tex version -->
+   <p>V(r) = d[(R/r)^(N+M) - (R/r)^N]
+
+   <p><strong>General syntax:</strong>
+
+<pre class="example"><var>radius</var> <var>epsilon</var>
+</pre>
+   <p>or
+
+<pre class="example"><var>r_1</var> <var>V_1</var>
+<var>r_2</var> <var>V_2</var>
+...
+<var>r_n</var> <var>V_n</var>
+</pre>
+   <p>In the first case, <var>radius</var> = r_0, the equilibrium distance, and <var>epsilon</var> =
+<!-- TeX version -->
+<!-- no TeX version -->
+D,
+the dissociation energy, for &lsquo;<samp><span class="samp">LenJon</span></samp>&rsquo; and &lsquo;<samp><span class="samp">LenJon-N-M</span></samp>&rsquo; potentials. Note that the parameters given are the equilibrium distance and the dissociation energy in both cases. The expression above for the general &lsquo;<samp><span class="samp">LenJon-</span><var>N</var><span class="samp">-</span><var>M</var></samp>&rsquo; Lennard-Jones potential are in terms of the parameters
+<!-- TeX version -->
+<!-- no TeX version -->
+d and R,
+related to r_0 and
+<!-- TeX version -->
+<!-- no TeX version -->
+D
+by:
+
+<!-- TeX version -->
+<!-- no TeX version -->
+   <p>R = r_0[N/(N+M)]^(1/M)
+
+<!-- TeX version -->
+<!-- no TeX version -->
+   <p>d = D[(N+M)/M][(N+M)/N]^(N/M)
+
+   <p>For a &lsquo;<samp><span class="samp">LSLenJon</span></samp>&rsquo; the points are given as in the second case.
+
+<!-- ====== new node/chap;sec;sub -->
+   </body></html>
+

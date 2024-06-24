@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+<title>Angular Momentum - QuAC Manual 1.0</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="QuAC Manual 1.0">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Calculation-Keywords.html#Calculation-Keywords" title="Calculation Keywords">
+<link rel="prev" href="Calculation-Keywords.html#Calculation-Keywords" title="Calculation Keywords">
+<link rel="next" href="Energy-and-Velocity.html#Energy-and-Velocity" title="Energy and Velocity">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+QuAC is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+QuAC - Quantum Atomic Collisions
+Copyright (C) 2009, 2010, 2011, 2012  Yuri Aoto-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Angular-Momentum"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Energy-and-Velocity.html#Energy-and-Velocity">Energy and Velocity</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Calculation-Keywords.html#Calculation-Keywords">Calculation Keywords</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Calculation-Keywords.html#Calculation-Keywords">Calculation Keywords</a>
+<hr>
+</div>
+
+<h4 class="subsection">7.3.1 Angular Momentum</h4>
+
+<p>The specification of the angular momentum for <code>PHASE_SHIFTS</code> and for <code>BOUND_STATES</code> calculations can be done giving the individuals values or the maximum value and must be given just once.
+
+   <p><strong>General syntax:</strong>
+
+<pre class="example">l
+<var>l_1</var>
+<var>l_2</var>
+...
+<var>l_n</var>
+</pre>
+   <p><a name="index-l-29"></a>
+or
+
+<pre class="example">lmax <var>l_max</var>
+</pre>
+   <p><a name="index-lmax-30"></a>
+<var>l_1</var>, <var>l_2</var>, <var>l_n</var>, <var>l_max</var> must be integers and the later case is equivalent to give all values from zero to the maximum values specified.
+
+   <p><strong>Incompatibilities:</strong>
+
+   <p>The value of angular momentum should not be given for a <code>SCATT_LENGTH</code> calculation, since it does only zero angular momentum integration.
+
+   <p><strong>Default values:</strong>
+
+   <p>There is no default values for <code>PHASE_SHIFTS</code> calculation and it always must be given. For <code>BOUND_STATES</code>, only the zero rotational levels are calculated by default.
+
+<!-- ====== new node/chap;sec;sub -->
+   </body></html>
+

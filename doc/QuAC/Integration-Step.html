@@ -1,0 +1,72 @@
+<html lang="en">
+<head>
+<title>Integration Step - QuAC Manual 1.0</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="QuAC Manual 1.0">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Calculation-Keywords.html#Calculation-Keywords" title="Calculation Keywords">
+<link rel="prev" href="Integration-Method.html#Integration-Method" title="Integration Method">
+<link rel="next" href="Print.html#Print" title="Print">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+QuAC is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+QuAC - Quantum Atomic Collisions
+Copyright (C) 2009, 2010, 2011, 2012  Yuri Aoto-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Integration-Step"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Print.html#Print">Print</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Integration-Method.html#Integration-Method">Integration Method</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Calculation-Keywords.html#Calculation-Keywords">Calculation Keywords</a>
+<hr>
+</div>
+
+<h4 class="subsection">7.3.4 Integration Step</h4>
+
+<p>The integration step of the numerical integration can be changed using the <code>IntStep</code> and <code>FinalIntStep</code> keywords. The first gives the step size of the integration through the interaction region. This step can be iteratively doubled in the long range region of the potential until the value specified by the second keyword. The units of the integration steps specified by these keywords are the same of the distance unit used in the potential definition.
+
+   <p><strong>General syntax:</strong>
+
+<pre class="example">IntStep <var>step</var>
+</pre>
+   <p><a name="index-IntStep-36"></a>
+or
+
+<pre class="example">FinalIntStep <var>step</var>
+</pre>
+   <p><a name="index-FinalIntStep-37"></a>
+<var>step</var> is the step size in the unit used in the potential of the current job.
+
+   <p><strong>Incompatibilities:</strong>
+
+   <p>The <code>IntStep</code> keyword should not be given for a scattering length by the Meshkov procedure. Use <code>AddSteps</code> instead, to give the size of the integration mesh, see <a href="Additional-Steps.html#Additional-Steps">Additional Steps</a>. <code>FinalIntStep</code> can be given only for <code>PHASE_SHIFTS</code> and <code>SCATT_LENGTH</code> calculations. Must be greater or equal the integration step. 
+<a name="index-AddSteps-38"></a>
+<strong>Default values:</strong>
+
+   <p>The default integration step is
+rho = kr = 0.005
+.(See <a href="Overview.html#Overview">Overview</a>.)
+
+<!-- ====== new node/chap;sec;sub -->
+   </body></html>
+

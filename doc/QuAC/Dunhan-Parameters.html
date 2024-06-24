@@ -1,0 +1,71 @@
+<html lang="en">
+<head>
+<title>Dunhan Parameters - QuAC Manual 1.0</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="QuAC Manual 1.0">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Analysis-Keywords.html#Analysis-Keywords" title="Analysis Keywords">
+<link rel="prev" href="CM-System-of-Reference.html#CM-System-of-Reference" title="CM System of Reference">
+<link rel="next" href="Cross-Section-Unit.html#Cross-Section-Unit" title="Cross Section Unit">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+QuAC is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+QuAC - Quantum Atomic Collisions
+Copyright (C) 2009, 2010, 2011, 2012  Yuri Aoto-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Dunhan-Parameters"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Cross-Section-Unit.html#Cross-Section-Unit">Cross Section Unit</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="CM-System-of-Reference.html#CM-System-of-Reference">CM System of Reference</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Analysis-Keywords.html#Analysis-Keywords">Analysis Keywords</a>
+<hr>
+</div>
+
+<h4 class="subsection">7.4.8 Dunhan Parameters</h4>
+
+<p>The Dunhan parameters that will be computed in an &lsquo;<samp><span class="samp">DunhanExpansion</span></samp>&rsquo; analysis can be defined with the keywords <code>DunhanNumberOfParam</code>, <code>DunhanPureVibrational</code>, or <code>DunhanPureRotational</code>.
+
+   <p><strong>General syntax:</strong>
+
+<pre class="example">DunhanNumberOfParam <var>n_vib</var> <var>n_rot</var> <var>n_vib_rot</var>
+</pre>
+   <p><a name="index-DunhanNumberOfParam-73"></a>
+<pre class="example">DunhanPureVibrational <var>n_vib</var>
+</pre>
+   <p><a name="index-DunhanPureVibrational-74"></a>
+<pre class="example">DunhanPureRotational <var>n_rot</var>
+</pre>
+   <p><a name="index-DunhanPureRotational-75"></a>
+The arguments <var>n_vib</var>, <var>n_rot</var> and <var>n_vib_rot</var> stands for the number of parameters vibrational, rotational and vibrational-rotational coupling in the Dunhan expansion. (See <a href="Overview.html#Overview">Overview</a>.)
+
+   <p><strong>Incompatibilities:</strong>
+
+   <p>Have meaning only for a &lsquo;<samp><span class="samp">DunhanExpansion</span></samp>&rsquo; analysis.
+
+   <p><strong>Default values:</strong>
+
+   <p>There are no default value for the number of Dunhan parameters. One (and only one) of these keywords must be given.
+
+<!-- ====== new node/chap;sec;sub -->
+   </body></html>
+
