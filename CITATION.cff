@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Aoto"
+  given-names: "Yuri Alexandre"
+  orcid: "https://orcid.org/0000-0002-1981-7470"
+title: "QuAC - Quantum Atomic Collisions"
+version: 1.0
+date-released: 2024-07-24
+url: "https://github.com/YuriAoto/QuAC"
